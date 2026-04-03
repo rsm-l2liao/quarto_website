@@ -1,6 +1,6 @@
 ---
 title: "Lele Liao"
-image: "files/profile_pic.jpg"
+image: "files/Lele_Winter.jpg"
 about:
   template: jolla
   links:

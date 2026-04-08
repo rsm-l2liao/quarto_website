@@ -16,7 +16,7 @@ about:
 
 Welcome to my website!
 
-## 🚀 Featured Projects
+## Featured Projects
 
 ::: {.grid}
 
@@ -30,9 +30,13 @@ Welcome to my website!
 
 ::: {.g-col-12 .g-col-md-4}
 ::: {.feature-card}
-<h3>📈 Marketing Analytics</h3>
-<p>Analyze campaign performance and ROI.</p>
-<a href="projects/marketing.qmd">View Project →</a>
+<h3>📊 Housing Market Dashboard</h3>
+
+<p>
+Analyze how income impacts housing prices and rental prices across U.S. regions through an interactive Tableau dashboard.
+</p>
+
+<a href="projects/HousingMarket/index.html">View Dashboard →</a>
 :::
 :::
 

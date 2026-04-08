@@ -29,15 +29,15 @@ Welcome to my website!
 :::
 
 ::: {.g-col-12 .g-col-md-4}
-::: {.feature-card}
+<a href="./projects/HousingMarket/" class="feature-card-link">
+<div class="feature-card">
 <h3>📊 Housing Market Dashboard</h3>
-
 <p>
-Analyze how income impacts housing prices and rental prices across U.S. regions through an interactive Tableau dashboard.
+Explore how income influences housing and rental prices.
 </p>
-
-<a href="projects/HousingMarket/index.html">View Dashboard →</a>
-:::
+<span class="card-link">View Dashboard →</span>
+</div>
+</a>
 :::
 
 ::: {.g-col-12 .g-col-md-4}

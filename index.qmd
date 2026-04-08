@@ -8,6 +8,40 @@ about:
       href: mailto:l2liao@ucsd.edu
     - icon: linkedin
       href: https://www.linkedin.com/in/lele-liao-134340/
+    - icon: github
+      href: https://github.com/rsm-l2liao
+    - icon: envelope
+      href: mailto:l2liao@ucsd.edu
 ---
 
 Welcome to my website!
+
+## 🚀 Featured Projects
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-4}
+::: {.feature-card}
+<h3>📊 Churn Prediction</h3>
+<p>Predict customer churn using ML models.</p>
+<a href="projects/churn-analysis.qmd">View Project →</a>
+:::
+:::
+
+::: {.g-col-12 .g-col-md-4}
+::: {.feature-card}
+<h3>📈 Marketing Analytics</h3>
+<p>Analyze campaign performance and ROI.</p>
+<a href="projects/marketing.qmd">View Project →</a>
+:::
+:::
+
+::: {.g-col-12 .g-col-md-4}
+::: {.feature-card}
+<h3>🤖 ML Model Deployment</h3>
+<p>End-to-end ML pipeline with deployment.</p>
+<a href="projects/ml-deployment.qmd">View Project →</a>
+:::
+:::
+
+:::

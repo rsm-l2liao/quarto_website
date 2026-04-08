@@ -3,20 +3,42 @@ project:
   output-dir: docs
 
 website:
-  title: "quarto_website"
+  title: "Lele Liao | Data Analyst"
+
   navbar:
     left:
       - href: index.qmd
-        text: Home
-      - href: resume.qmd
-        text: Resume
+        text: About
       - href: projects.qmd
         text: Projects
+      - href: resume.qmd
+        text: Resume
+
+    right:
+      - icon: github
+        href: https://github.com/rsm-l2liao
+      - icon: linkedin
+        href: https://www.linkedin.com/in/lele-liao-134340/
+
+  page-footer:
+    center: |
+      © 2026 Lele Liao · Portfolio
 
 format:
   html:
     theme:
-      - cosmo
-      - brand
-    css: styles.css
-    toc: true
+      light: cosmo
+      dark: darkly
+
+    css:
+      - styles.css
+
+    toc: false
+
+    code-copy: true
+    code-fold: false
+
+    smooth-scroll: true
+    link-external-newwindow: true
+
+    page-layout: article

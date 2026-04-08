@@ -1,11 +1,47 @@
 ---
-title: "Analysis of Cars"
-author: Your Name
-date: today
+title: "Housing Market Dashboard"
+toc: false
 ---
 
-# Header
+## Housing Market Dashboard
 
-Let's investigate the relationship between fuel efficiency (`mpg`) and engine displacement (`disp`) from the `mtcars` dataset. Those variables have a correlation of `r cor(mtcars$mpg, mtcars$disp) |> format(digits=2)`.
+### 📌 Project Goal
 
-## Sub-Header
+This project investigates how income levels influence both housing prices and rental prices across U.S. regions, aiming to identify patterns, correlations, and regional disparities in the housing market.
+
+### 🔍 Interpretation
+
+The analysis indicates that income is a key driver of both housing and rental prices. However, its impact varies across regions due to factors such as housing supply, population density, and local economic conditions.
+
+While higher income generally leads to higher housing costs, regional disparities highlight the complexity of housing market dynamics.
+
+---
+
+```{=html}
+<div class='tableauPlaceholder' id='viz1775616064879' style='position: relative'>
+  <noscript>
+    <a href='#'>
+      <img alt=' ' src='https://public.tableau.com/static/images/Ho/HousingMarketMove/Story/1_rss.png' style='border: none' />
+    </a>
+  </noscript>
+
+  <object class='tableauViz' style='display:none;'>
+    <param name='host_url' value='https://public.tableau.com/' />
+    <param name='embed_code_version' value='3' />
+    <param name='name' value='HousingMarketMove/Story' />
+    <param name='tabs' value='yes' />
+    <param name='toolbar' value='yes' />
+  </object>
+</div>
+
+<script type='text/javascript'>
+  var divElement = document.getElementById('viz1775616064879');
+  var vizElement = divElement.getElementsByTagName('object')[0];
+
+  vizElement.style.width = '100%';
+  vizElement.style.height = '1000px';  // ⭐ 关键：防止被裁剪
+
+  var scriptElement = document.createElement('script');
+  scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+  vizElement.parentNode.insertBefore(scriptElement, vizElement);
+</script>

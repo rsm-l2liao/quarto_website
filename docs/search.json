@@ -25,13 +25,27 @@
     "href": "projects.html",
     "title": "My Projects",
     "section": "",
-    "text": "Analysis of Cars\n\n\n\n\n\n\nYour Name\n\n\nApr 3, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Housing Market Dashboard\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "projects/project1/index.html",
     "href": "projects/project1/index.html",
-    "title": "Analysis of Cars",
+    "title": "Housing Market Dashboard",
     "section": "",
-    "text": "Let’s investigate the relationship between fuel efficiency (mpg) and engine displacement (disp) from the mtcars dataset. Those variables have a correlation of r cor(mtcars$mpg, mtcars$disp) |&gt; format(digits=2)."
+    "text": "This project investigates how income levels influence both housing prices and rental prices across U.S. regions, aiming to identify patterns, correlations, and regional disparities in the housing market.\n\n\n\nThe analysis indicates that income is a key driver of both housing and rental prices. However, its impact varies across regions due to factors such as housing supply, population density, and local economic conditions.\nWhile higher income generally leads to higher housing costs, regional disparities highlight the complexity of housing market dynamics."
+  },
+  {
+    "objectID": "index.html#featured-projects",
+    "href": "index.html#featured-projects",
+    "title": "Lele Liao",
+    "section": "🚀 Featured Projects",
+    "text": "🚀 Featured Projects\n\n\n\n\n📊 Churn Prediction\n\n\nPredict customer churn using ML models.\n\nView Project →\n\n\n\n\n\n📈 Marketing Analytics\n\n\nAnalyze campaign performance and ROI.\n\nView Project →\n\n\n\n\n\n🤖 ML Model Deployment\n\n\nEnd-to-end ML pipeline with deployment.\n\nView Project →"
+  },
+  {
+    "objectID": "projects/project1/index.html#housing-market-dashboard",
+    "href": "projects/project1/index.html#housing-market-dashboard",
+    "title": "Housing Market Dashboard",
+    "section": "",
+    "text": "This project investigates how income levels influence both housing prices and rental prices across U.S. regions, aiming to identify patterns, correlations, and regional disparities in the housing market.\n\n\n\nThe analysis indicates that income is a key driver of both housing and rental prices. However, its impact varies across regions due to factors such as housing supply, population density, and local economic conditions.\nWhile higher income generally leads to higher housing costs, regional disparities highlight the complexity of housing market dynamics."
   }
 ]

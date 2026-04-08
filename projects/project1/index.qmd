@@ -3,8 +3,6 @@ title: "Housing Market Dashboard"
 toc: false
 ---
 
-## Housing Market Dashboard
-
 ### 📌 Project Goal
 
 This project investigates how income levels influence both housing prices and rental prices across U.S. regions, aiming to identify patterns, correlations, and regional disparities in the housing market.

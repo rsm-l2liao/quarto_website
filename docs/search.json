@@ -7,11 +7,11 @@
     "text": "Welcome to my website!"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
+    "objectID": "index.html#featured-projects",
+    "href": "index.html#featured-projects",
+    "title": "Lele Liao",
+    "section": "Featured Projects",
+    "text": "Featured Projects\n\n\n\n\n📊 Churn Prediction\n\n\nPredict customer churn using ML models.\n\nView Project →\n\n\n\n\n\n📊 Housing Market Dashboard\n\n\nAnalyze how income impacts housing prices and rental prices across U.S. regions through an interactive Tableau dashboard.\n\nView Dashboard →\n\n\n\n\n\n🤖 ML Model Deployment\n\n\nEnd-to-end ML pipeline with deployment.\n\nView Project →"
   },
   {
     "objectID": "resume.html",
@@ -21,6 +21,13 @@
     "text": "Download PDF file."
   },
   {
+    "objectID": "projects/HousingMarket/index.html",
+    "href": "projects/HousingMarket/index.html",
+    "title": "Housing Market Dashboard",
+    "section": "",
+    "text": "📌 Project Goal\nThis project investigates how income levels influence both housing prices and rental prices across U.S. regions, aiming to identify patterns, correlations, and regional disparities in the housing market.\n\n\n🔍 Interpretation\nThe analysis indicates that income is a key driver of both housing and rental prices. However, its impact varies across regions due to factors such as housing supply, population density, and local economic conditions.\nWhile higher income generally leads to higher housing costs, regional disparities highlight the complexity of housing market dynamics."
+  },
+  {
     "objectID": "projects.html",
     "href": "projects.html",
     "title": "My Projects",
@@ -28,24 +35,10 @@
     "text": "Housing Market Dashboard\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "projects/project1/index.html",
-    "href": "projects/project1/index.html",
-    "title": "Housing Market Dashboard",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "📌 Project Goal\nThis project investigates how income levels influence both housing prices and rental prices across U.S. regions, aiming to identify patterns, correlations, and regional disparities in the housing market.\n\n\n🔍 Interpretation\nThe analysis indicates that income is a key driver of both housing and rental prices. However, its impact varies across regions due to factors such as housing supply, population density, and local economic conditions.\nWhile higher income generally leads to higher housing costs, regional disparities highlight the complexity of housing market dynamics."
-  },
-  {
-    "objectID": "index.html#featured-projects",
-    "href": "index.html#featured-projects",
-    "title": "Lele Liao",
-    "section": "Featured Projects",
-    "text": "Featured Projects\n\n\n\n\n📊 Churn Prediction\n\n\nPredict customer churn using ML models.\n\nView Project →\n\n\n\n\n\n📊 Housing Market Dashboard\n\n\nAnalyze how income impacts housing prices and rental prices across U.S. regions through an interactive Tableau dashboard.\n\nView Dashboard →\n\n\n\n\n\n🤖 ML Model Deployment\n\n\nEnd-to-end ML pipeline with deployment.\n\nView Project →"
-  },
-  {
-    "objectID": "projects/project1/index.html#housing-market-dashboard",
-    "href": "projects/project1/index.html#housing-market-dashboard",
-    "title": "Housing Market Dashboard",
-    "section": "",
-    "text": "This project investigates how income levels influence both housing prices and rental prices across U.S. regions, aiming to identify patterns, correlations, and regional disparities in the housing market.\n\n\n\nThe analysis indicates that income is a key driver of both housing and rental prices. However, its impact varies across regions due to factors such as housing supply, population density, and local economic conditions.\nWhile higher income generally leads to higher housing costs, regional disparities highlight the complexity of housing market dynamics."
+    "text": "About this site"
   }
 ]

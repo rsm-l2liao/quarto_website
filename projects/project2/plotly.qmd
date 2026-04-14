@@ -1,0 +1,33 @@
+---
+title: "Housing Dashboard (Plotly)"
+format: html
+execute:
+  enabled: true
+---
+
+## Housing Price Dashboard
+
+```{python}
+import pandas as pd
+import plotly.express as px
+
+df = pd.read_csv("../../data/ZHVI.csv")
+
+
+df["date"] = pd.to_datetime(df["date"])
+
+
+cities = ["New York, NY", "Los Angeles, CA", "San Diego, CA", "Dallas, TX"]
+
+filtered = df[df["RegionName"].isin(cities)]
+
+fig = px.line(
+    filtered,
+    x="date",
+    y="value",
+    color="RegionName",
+    title="Housing Prices Over Time"
+)
+
+fig
+```

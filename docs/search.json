@@ -32,7 +32,7 @@
     "href": "projects.html",
     "title": "My Projects",
     "section": "",
-    "text": "Housing Market Dashboard\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Housing Dashboard (Plotly)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHousing Market Dashboard\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -40,5 +40,19 @@
     "title": "About",
     "section": "",
     "text": "About this site"
+  },
+  {
+    "objectID": "projects/project2/plotly.html",
+    "href": "projects/project2/plotly.html",
+    "title": "Housing Dashboard (Plotly)",
+    "section": "",
+    "text": "import pandas as pd\nimport plotly.express as px\n\ndf = pd.read_csv(\"../../data/ZHVI.csv\")\n\n\ndf[\"date\"] = pd.to_datetime(df[\"date\"])\n\n\ncities = [\"New York, NY\", \"Los Angeles, CA\", \"San Diego, CA\", \"Dallas, TX\"]\n\nfiltered = df[df[\"RegionName\"].isin(cities)]\n\nfig = px.line(\n    filtered,\n    x=\"date\",\n    y=\"value\",\n    color=\"RegionName\",\n    title=\"Housing Prices Over Time\"\n)\n\nfig"
+  },
+  {
+    "objectID": "projects/project2/plotly.html#housing-price-dashboard",
+    "href": "projects/project2/plotly.html#housing-price-dashboard",
+    "title": "Housing Dashboard (Plotly)",
+    "section": "",
+    "text": "import pandas as pd\nimport plotly.express as px\n\ndf = pd.read_csv(\"../../data/ZHVI.csv\")\n\n\ndf[\"date\"] = pd.to_datetime(df[\"date\"])\n\n\ncities = [\"New York, NY\", \"Los Angeles, CA\", \"San Diego, CA\", \"Dallas, TX\"]\n\nfiltered = df[df[\"RegionName\"].isin(cities)]\n\nfig = px.line(\n    filtered,\n    x=\"date\",\n    y=\"value\",\n    color=\"RegionName\",\n    title=\"Housing Prices Over Time\"\n)\n\nfig"
   }
 ]

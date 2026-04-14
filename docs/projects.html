@@ -383,16 +383,26 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1775617231921" data-listing-reading-time-sort="1" data-listing-word-count-sort="185">
-<a href="./projects/HousingMarket/index.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="0" data-listing-file-modified-sort="1776127143589" data-listing-reading-time-sort="1" data-listing-word-count-sort="44">
+<a href="./projects/project2/plotly.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-Housing Market Dashboard
+Housing Dashboard (Plotly)
 </h5>
 <div class="card-text listing-description delink">
-This project investigates how income levels influence both housing prices and rental prices across U.S. regions, aiming to identify patterns, correlations, and regional…
+
+
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><span class="im">import</span> plotly.express <span class="im">as</span> px</span>
+<span id="cb1-3"></span>
+<span id="cb1-4">df <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ZHVI.csv"</span>)</span>
+<span id="cb1-5"></span>
+<span id="cb1-6">df_long <span class="op">=</span> df.melt(</span>
+<span id="cb1-7">    id_vars<span class="op">=</span>[<span class="st">"RegionName"</span>],</span>
+<span id="cb1-8">    var_name<span class="op">=</span><span class="st">"Date"</span>,</span>
+<span id="cb1-9">    value_name<span class="op">=</span><span class="st">…</span></span><span id="cb1-10"></span><span id="cb1-11"></span><span id="cb1-12"><span class="st"></span><span class="op"></span><span class="st"></span><span class="op"></span><span class="st"></span></span><span id="cb1-13"></span><span id="cb1-14"><span class="op"></span><span class="st"></span><span class="st"></span><span class="st"></span><span class="st"></span></span><span id="cb1-15"></span><span id="cb1-16"><span class="op"></span><span class="st"></span></span><span id="cb1-17"></span><span id="cb1-18"><span class="op"></span><span class="op"></span><span class="st"></span><span class="op"></span><span class="st"></span><span class="op"></span><span class="st"></span></span><span id="cb1-19"></span><span id="cb1-20"></span></code></pre></div></div><pre><code></code></pre><div><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script></script><script></script><script charset="utf-8" src="https://cdn.plot.ly/plotly-3.5.0.min.js" integrity="sha256-fHbNLP+GlIXN+efbQec78UkemUz3NJp7UmfGxC1tNxs=" crossorigin="anonymous"></script><div id="0df5191f-cabb-406a-b8b6-f3cc2061bdbb" class="plotly-graph-div" style="height:525px; width:100%;"></div><script></script></div>
 </div>
 <div class="card-attribution card-text-small start">
 <div class="listing-author">
@@ -402,13 +412,16 @@ This project investigates how income levels influence both housing prices and re
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1775254303544">
-<a href="./projects/project2/index.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="1" data-listing-file-modified-sort="1775617231921" data-listing-reading-time-sort="1" data-listing-word-count-sort="185">
+<a href="./projects/HousingMarket/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <div class="listing-item-img-placeholder card-img-top" style="height: 150px;">&nbsp;</div>
 <div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Housing Market Dashboard
+</h5>
 <div class="card-text listing-description delink">
-
+This project investigates how income levels influence both housing prices and rental prices across U.S. regions, aiming to identify patterns, correlations, and regional…
 </div>
 <div class="card-attribution card-text-small start">
 <div class="listing-author">

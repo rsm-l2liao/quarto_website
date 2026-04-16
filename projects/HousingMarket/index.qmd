@@ -3,11 +3,11 @@ title: "Housing Market Dashboard"
 toc: false
 ---
 
-### 📌 Project Goal
+### Project Goal
 
 This project investigates how income levels influence both housing prices and rental prices across U.S. regions, aiming to identify patterns, correlations, and regional disparities in the housing market.
 
-### 🔍 Interpretation
+### Interpretation
 
 The analysis indicates that income is a key driver of both housing and rental prices. However, its impact varies across regions due to factors such as housing supply, population density, and local economic conditions.
 
@@ -37,7 +37,7 @@ While higher income generally leads to higher housing costs, regional disparitie
   var vizElement = divElement.getElementsByTagName('object')[0];
 
   vizElement.style.width = '100%';
-  vizElement.style.height = '1000px';  // ⭐ 关键：防止被裁剪
+  vizElement.style.height = '1000px';
 
   var scriptElement = document.createElement('script');
   scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';

@@ -46,7 +46,7 @@
     "href": "projects/project2/plotly.html",
     "title": "Housing Dashboard (Plotly)",
     "section": "",
-    "text": "import pandas as pd\nimport plotly.express as px\n\ndf = pd.read_csv(\"../../data/ZHVI.csv\")\n\n\ndf[\"date\"] = pd.to_datetime(df[\"date\"])\n\n\ncities = [\"New York, NY\", \"Los Angeles, CA\", \"San Diego, CA\", \"Dallas, TX\"]\n\nfiltered = df[df[\"RegionName\"].isin(cities)]\n\nfig = px.line(\n    filtered,\n    x=\"date\",\n    y=\"value\",\n    color=\"RegionName\",\n    title=\"Housing Prices Over Time\"\n)\n\nfig"
+    "text": "import pandas as pd\nimport plotly.graph_objects as go\n\ndf = pd.read_csv(\"../../data/ZHVI.csv\")\n\ndf[\"date\"] = pd.to_datetime(df[\"date\"])\n\ncities = [\"New York, NY\", \"Los Angeles, CA\", \"San Diego, CA\", \"Dallas, TX\"]\n\nfiltered = df[df[\"RegionName\"].isin(cities)]\n\nfig = go.Figure()\n\nfor i, city in enumerate(cities):\n    city_df = filtered[filtered[\"RegionName\"] == city]\n\n    fig.add_trace(\n        go.Scatter(\n            x=city_df[\"date\"],\n            y=city_df[\"value\"],\n            mode=\"lines\",\n            name=city,\n            visible=(i == 0)\n        )\n    )\n\n\nbuttons = []\n\nfor i, city in enumerate(cities):\n    visible = [False] * len(cities)\n    visible[i] = True\n\n    buttons.append(\n        dict(\n            label=city,\n            method=\"update\",\n            args=[\n                {\"visible\": visible},\n                {\"title\": f\"Housing Prices in {city}\"}\n            ]\n        )\n    )\n\n\nfig.update_layout(\n    updatemenus=[\n        dict(\n            buttons=buttons,\n            direction=\"down\",\n            showactive=True,\n        )\n    ],\n    title=f\"Housing Prices in {cities[0]}\",\n    xaxis_title=\"Date\",\n    yaxis_title=\"Price\",\n    template=\"plotly_white\"\n)\n\nfig"
   },
   {
     "objectID": "projects/project2/plotly.html#housing-price-dashboard",
@@ -54,5 +54,12 @@
     "title": "Housing Dashboard (Plotly)",
     "section": "",
     "text": "import pandas as pd\nimport plotly.express as px\n\ndf = pd.read_csv(\"../../data/ZHVI.csv\")\n\n\ndf[\"date\"] = pd.to_datetime(df[\"date\"])\n\n\ncities = [\"New York, NY\", \"Los Angeles, CA\", \"San Diego, CA\", \"Dallas, TX\"]\n\nfiltered = df[df[\"RegionName\"].isin(cities)]\n\nfig = px.line(\n    filtered,\n    x=\"date\",\n    y=\"value\",\n    color=\"RegionName\",\n    title=\"Housing Prices Over Time\"\n)\n\nfig"
+  },
+  {
+    "objectID": "projects/project2/plotly.html#housing-price-by-city",
+    "href": "projects/project2/plotly.html#housing-price-by-city",
+    "title": "Housing Dashboard (Plotly)",
+    "section": "",
+    "text": "import pandas as pd\nimport plotly.graph_objects as go\n\ndf = pd.read_csv(\"../../data/ZHVI.csv\")\n\ndf[\"date\"] = pd.to_datetime(df[\"date\"])\n\ncities = [\"New York, NY\", \"Los Angeles, CA\", \"San Diego, CA\", \"Dallas, TX\"]\n\nfiltered = df[df[\"RegionName\"].isin(cities)]\n\nfig = go.Figure()\n\nfor i, city in enumerate(cities):\n    city_df = filtered[filtered[\"RegionName\"] == city]\n\n    fig.add_trace(\n        go.Scatter(\n            x=city_df[\"date\"],\n            y=city_df[\"value\"],\n            mode=\"lines\",\n            name=city,\n            visible=(i == 0)\n        )\n    )\n\n\nbuttons = []\n\nfor i, city in enumerate(cities):\n    visible = [False] * len(cities)\n    visible[i] = True\n\n    buttons.append(\n        dict(\n            label=city,\n            method=\"update\",\n            args=[\n                {\"visible\": visible},\n                {\"title\": f\"Housing Prices in {city}\"}\n            ]\n        )\n    )\n\n\nfig.update_layout(\n    updatemenus=[\n        dict(\n            buttons=buttons,\n            direction=\"down\",\n            showactive=True,\n        )\n    ],\n    title=f\"Housing Prices in {cities[0]}\",\n    xaxis_title=\"Date\",\n    yaxis_title=\"Price\",\n    template=\"plotly_white\"\n)\n\nfig"
   }
 ]

@@ -5,28 +5,66 @@ execute:
   enabled: true
 ---
 
-## Housing Price Dashboard
+## 📊 Housing Price by City
 
 ```{python}
 import pandas as pd
-import plotly.express as px
+import plotly.graph_objects as go
 
 df = pd.read_csv("../../data/ZHVI.csv")
 
-
 df["date"] = pd.to_datetime(df["date"])
-
 
 cities = ["New York, NY", "Los Angeles, CA", "San Diego, CA", "Dallas, TX"]
 
 filtered = df[df["RegionName"].isin(cities)]
 
-fig = px.line(
-    filtered,
-    x="date",
-    y="value",
-    color="RegionName",
-    title="Housing Prices Over Time"
+fig = go.Figure()
+
+for i, city in enumerate(cities):
+    city_df = filtered[filtered["RegionName"] == city]
+
+    fig.add_trace(
+        go.Scatter(
+            x=city_df["date"],
+            y=city_df["value"],
+            mode="lines",
+            name=city,
+            visible=(i == 0)
+        )
+    )
+
+
+buttons = []
+
+for i, city in enumerate(cities):
+    visible = [False] * len(cities)
+    visible[i] = True
+
+    buttons.append(
+        dict(
+            label=city,
+            method="update",
+            args=[
+                {"visible": visible},
+                {"title": f"Housing Prices in {city}"}
+            ]
+        )
+    )
+
+
+fig.update_layout(
+    updatemenus=[
+        dict(
+            buttons=buttons,
+            direction="down",
+            showactive=True,
+        )
+    ],
+    title=f"Housing Prices in {cities[0]}",
+    xaxis_title="Date",
+    yaxis_title="Price",
+    template="plotly_white"
 )
 
 fig

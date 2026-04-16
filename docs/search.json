@@ -61,5 +61,110 @@
     "title": "Housing Dashboard (Plotly)",
     "section": "",
     "text": "import pandas as pd\nimport plotly.graph_objects as go\n\ndf = pd.read_csv(\"../../data/ZHVI.csv\")\n\ndf[\"date\"] = pd.to_datetime(df[\"date\"])\n\ncities = [\"New York, NY\", \"Los Angeles, CA\", \"San Diego, CA\", \"Dallas, TX\"]\n\nfiltered = df[df[\"RegionName\"].isin(cities)]\n\nfig = go.Figure()\n\nfor i, city in enumerate(cities):\n    city_df = filtered[filtered[\"RegionName\"] == city]\n\n    fig.add_trace(\n        go.Scatter(\n            x=city_df[\"date\"],\n            y=city_df[\"value\"],\n            mode=\"lines\",\n            name=city,\n            visible=(i == 0)\n        )\n    )\n\n\nbuttons = []\n\nfor i, city in enumerate(cities):\n    visible = [False] * len(cities)\n    visible[i] = True\n\n    buttons.append(\n        dict(\n            label=city,\n            method=\"update\",\n            args=[\n                {\"visible\": visible},\n                {\"title\": f\"Housing Prices in {city}\"}\n            ]\n        )\n    )\n\n\nfig.update_layout(\n    updatemenus=[\n        dict(\n            buttons=buttons,\n            direction=\"down\",\n            showactive=True,\n        )\n    ],\n    title=f\"Housing Prices in {cities[0]}\",\n    xaxis_title=\"Date\",\n    yaxis_title=\"Price\",\n    template=\"plotly_white\"\n)\n\nfig"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#deploying-dashboards-in-quarto",
+    "href": "presentation/inclasspresentation.html#deploying-dashboards-in-quarto",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Deploying Dashboards in Quarto",
+    "text": "Deploying Dashboards in Quarto\n\nTableau vs Plotly"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#tableau-deployment-process",
+    "href": "presentation/inclasspresentation.html#tableau-deployment-process",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Tableau Deployment Process",
+    "text": "Tableau Deployment Process\n\nBuild dashboard in Tableau\nPublish to Tableau Public\nCopy embed code\nPaste into Quarto website"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#tableau-example",
+    "href": "presentation/inclasspresentation.html#tableau-example",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Tableau Example",
+    "text": "Tableau Example\nStep 1: Copy Embed Code"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#tableau-example-1",
+    "href": "presentation/inclasspresentation.html#tableau-example-1",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Tableau Example",
+    "text": "Tableau Example\nStep 2: Embed Code"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#tableau-example-2",
+    "href": "presentation/inclasspresentation.html#tableau-example-2",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Tableau Example",
+    "text": "Tableau Example\nStep 3: Final Dashboard"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#plotly-deployment-in-quarto",
+    "href": "presentation/inclasspresentation.html#plotly-deployment-in-quarto",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Plotly Deployment in Quarto",
+    "text": "Plotly Deployment in Quarto\n\nBuilt using Python + Plotly\nRuns directly in the browser\nNo external hosting required"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#plotly-example",
+    "href": "presentation/inclasspresentation.html#plotly-example",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Plotly Example",
+    "text": "Plotly Example\nStep 1: Quarto Code"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#plotly-example-1",
+    "href": "presentation/inclasspresentation.html#plotly-example-1",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Plotly Example",
+    "text": "Plotly Example\nStep 2: Dashboard Output"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#comparison",
+    "href": "presentation/inclasspresentation.html#comparison",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Comparison",
+    "text": "Comparison\n\n\n\nTableau\nPlotly\n\n\n\n\nEasy to use\nRequires coding\n\n\nExternal platform\nNo hosting needed\n\n\nLess flexible\nHighly customizable\n\n\n\n\nLive Demo\nhttps://rsm-l2liao.github.io/quarto_website/projects.html"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#comparison-1",
+    "href": "presentation/inclasspresentation.html#comparison-1",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Comparison",
+    "text": "Comparison\nPlotly - Requires coding - Highly customizable - Works in static websites"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#live-demo",
+    "href": "presentation/inclasspresentation.html#live-demo",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Live Demo",
+    "text": "Live Demo\nTableau Dashboard: https://your-tableau-link\nPlotly Dashboard: https://your-quarto-site"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#conclusion",
+    "href": "presentation/inclasspresentation.html#conclusion",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Conclusion",
+    "text": "Conclusion\n\nTableau is best for quick visualization\nPlotly is best for flexible deployment\n\n👉 Choose the tool based on your needs"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#tableau-deployment",
+    "href": "presentation/inclasspresentation.html#tableau-deployment",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Tableau Deployment",
+    "text": "Tableau Deployment\n\nPublish to Tableau Public\nCopy embed code\nPaste into Quarto"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#plotly-dashboard-in-quarto",
+    "href": "presentation/inclasspresentation.html#plotly-dashboard-in-quarto",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Plotly Dashboard in Quarto",
+    "text": "Plotly Dashboard in Quarto\n\n::: column width=“45%”Key Features\n\nBuilt with Python\nRuns in browser\nNo external hosting\n\nCore Code\n```python fig = go.Figure() fig.add_trace(go.Scatter(…)) fig.update_layout(updatemenus=[…])\nComparison\n\n\n\nTableau\nPlotly\n\n\n\n\nEasy to use\nRequires coding\n\n\nExternal platform\nNo hosting needed\n\n\nLess flexible\nHighly customizable\n\n\n\n\nLive Demo\nhttps://rsm-l2liao.github.io/quarto_website/projects.html"
+  },
+  {
+    "objectID": "presentation/inclasspresentation.html#plotly-dashboard-example",
+    "href": "presentation/inclasspresentation.html#plotly-dashboard-example",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Plotly Dashboard Example",
+    "text": "Plotly Dashboard Example\n\n\n\n\nBuilt with Python\nRuns in browser\nNo external hosting\n\n\n\n\nCore Code\nfig = go.Figure()\nfig.add_trace(go.Scatter(...))\nfig.update_layout(updatemenus=[...])"
   }
 ]

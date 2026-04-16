@@ -166,5 +166,19 @@
     "title": "Deploying Dashboards in Quarto",
     "section": "Plotly Dashboard Example",
     "text": "Plotly Dashboard Example\n\n\n\n\nBuilt with Python\nRuns in browser\nNo external hosting\n\n\n\n\nCore Code\nfig = go.Figure()\nfig.add_trace(go.Scatter(...))\nfig.update_layout(updatemenus=[...])"
+  },
+  {
+    "objectID": "presentation/Liao_Lele-plotly_dashboard.html#tableau-deployment",
+    "href": "presentation/Liao_Lele-plotly_dashboard.html#tableau-deployment",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Tableau Deployment",
+    "text": "Tableau Deployment\n\nPublish to Tableau Public\nCopy embed code\nPaste into Quarto"
+  },
+  {
+    "objectID": "presentation/Liao_Lele-plotly_dashboard.html#comparison",
+    "href": "presentation/Liao_Lele-plotly_dashboard.html#comparison",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Comparison",
+    "text": "Comparison\n\n\n\nTableau\nPlotly\n\n\n\n\nEasy to use\nRequires coding\n\n\nExternal platform\nNo hosting needed\n\n\nLess flexible\nHighly customizable\n\n\n\n\nLive Demo\nhttps://rsm-l2liao.github.io/quarto_website/projects.html"
   }
 ]

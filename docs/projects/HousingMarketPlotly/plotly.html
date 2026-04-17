@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.13">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Housing Dashboard (Plotly) – Lele Liao | Data Analyst</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ac077c1e730dfeb5e42400639d17284e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-ea00d30dd9b950c7ecb6e17bc6ca0835.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ac077c1e730dfeb5e42400639d17284e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3b988793beeeeab0265599ed392226a2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-3b2d492bae908366fb1621f3f5d11d0a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-3b988793beeeeab0265599ed392226a2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script>
+window.PlotlyConfig = {MathJaxConfig: 'local'};
+if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}
+</script>
+<script type="module">import "https://cdn.plot.ly/plotly-3.5.0.min"</script>
+
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Lele Liao | Data Analyst</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../presentation.html"> 
+<span class="menu-text">Presentations</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../resume.html"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/rsm-l2liao"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/lele-liao-134340/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Housing Dashboard (Plotly)</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="housing-price-by-city" class="level2">
+<h2 class="anchored" data-anchor-id="housing-price-by-city">📊 Housing Price by City</h2>
+<div id="b4fe5c20" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.graph_objects <span class="im">as</span> go</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ZHVI.csv"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>df[<span class="st">"date"</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">"date"</span>])</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>cities <span class="op">=</span> [<span class="st">"New York, NY"</span>, <span class="st">"Los Angeles, CA"</span>, <span class="st">"San Diego, CA"</span>, <span class="st">"Dallas, TX"</span>]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>filtered <span class="op">=</span> df[df[<span class="st">"RegionName"</span>].isin(cities)]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> go.Figure()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, city <span class="kw">in</span> <span class="bu">enumerate</span>(cities):</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    city_df <span class="op">=</span> filtered[filtered[<span class="st">"RegionName"</span>] <span class="op">==</span> city]</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    fig.add_trace(</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        go.Scatter(</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>            x<span class="op">=</span>city_df[<span class="st">"date"</span>],</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span>city_df[<span class="st">"value"</span>],</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>            mode<span class="op">=</span><span class="st">"lines"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>            name<span class="op">=</span>city,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>            visible<span class="op">=</span>(i <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>buttons <span class="op">=</span> []</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, city <span class="kw">in</span> <span class="bu">enumerate</span>(cities):</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    visible <span class="op">=</span> [<span class="va">False</span>] <span class="op">*</span> <span class="bu">len</span>(cities)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    visible[i] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    buttons.append(</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        <span class="bu">dict</span>(</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>            label<span class="op">=</span>city,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>            method<span class="op">=</span><span class="st">"update"</span>,</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>            args<span class="op">=</span>[</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>                {<span class="st">"visible"</span>: visible},</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>                {<span class="st">"title"</span>: <span class="ss">f"Housing Prices in </span><span class="sc">{</span>city<span class="sc">}</span><span class="ss">"</span>}</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>fig.update_layout(</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    updatemenus<span class="op">=</span>[</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        <span class="bu">dict</span>(</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>            buttons<span class="op">=</span>buttons,</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>            direction<span class="op">=</span><span class="st">"down"</span>,</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>            showactive<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    title<span class="op">=</span><span class="ss">f"Housing Prices in </span><span class="sc">{</span>cities[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    xaxis_title<span class="op">=</span><span class="st">"Date"</span>,</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    yaxis_title<span class="op">=</span><span class="st">"Price"</span>,</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    template<span class="op">=</span><span class="st">"plotly_white"</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>fig</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>            <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_SVG"></script><script>if (window.MathJax && window.MathJax.Hub && window.MathJax.Hub.Config) {window.MathJax.Hub.Config({SVG: {font: "STIX-Web"}});}</script>                <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.5.0.min.js" integrity="sha256-fHbNLP+GlIXN+efbQec78UkemUz3NJp7UmfGxC1tNxs=" crossorigin="anonymous"></script>                <div id="b0470c3c-0cdb-45c8-b042-8c3983b0b7af" class="plotly-graph-div" style="height:525px; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("b0470c3c-0cdb-45c8-b042-8c3983b0b7af")) {                    Plotly.newPlot(                        "b0470c3c-0cdb-45c8-b042-8c3983b0b7af",                        [{"mode":"lines","name":"New York, NY","visible":true,"x":["2000-01-31T00:00:00","2000-02-29T00:00:00","2000-03-31T00:00:00","2000-04-30T00:00:00","2000-05-31T00:00:00","2000-06-30T00:00:00","2000-07-31T00:00:00","2000-08-31T00:00:00","2000-09-30T00:00:00","2000-10-31T00:00:00","2000-11-30T00:00:00","2000-12-31T00:00:00","2001-01-31T00:00:00","2001-02-28T00:00:00","2001-03-31T00:00:00","2001-04-30T00:00:00","2001-05-31T00:00:00","2001-06-30T00:00:00","2001-07-31T00:00:00","2001-08-31T00:00:00","2001-09-30T00:00:00","2001-10-31T00:00:00","2001-11-30T00:00:00","2001-12-31T00:00:00","2002-01-31T00:00:00","2002-02-28T00:00:00","2002-03-31T00:00:00","2002-04-30T00:00:00","2002-05-31T00:00:00","2002-06-30T00:00:00","2002-07-31T00:00:00","2002-08-31T00:00:00","2002-09-30T00:00:00","2002-10-31T00:00:00","2002-11-30T00:00:00","2002-12-31T00:00:00","2003-01-31T00:00:00","2003-02-28T00:00:00","2003-03-31T00:00:00","2003-04-30T00:00:00","2003-05-31T00:00:00","2003-06-30T00:00:00","2003-07-31T00:00:00","2003-08-31T00:00:00","2003-09-30T00:00:00","2003-10-31T00:00:00","2003-11-30T00:00:00","2003-12-31T00:00:00","2004-01-31T00:00:00","2004-02-29T00:00:00","2004-03-31T00:00:00","2004-04-30T00:00:00","2004-05-31T00:00:00","2004-06-30T00:00:00","2004-07-31T00:00:00","2004-08-31T00:00:00","2004-09-30T00:00:00","2004-10-31T00:00:00","2004-11-30T00:00:00","2004-12-31T00:00:00","2005-01-31T00:00:00","2005-02-28T00:00:00","2005-03-31T00:00:00","2005-04-30T00:00:00","2005-05-31T00:00:00","2005-06-30T00:00:00","2005-07-31T00:00:00","2005-08-31T00:00:00","2005-09-30T00:00:00","2005-10-31T00:00:00","2005-11-30T00:00:00","2005-12-31T00:00:00","2006-01-31T00:00:00","2006-02-28T00:00:00","2006-03-31T00:00:00","2006-04-30T00:00:00","2006-05-31T00:00:00","2006-06-30T00:00:00","2006-07-31T00:00:00","2006-08-31T00:00:00","2006-09-30T00:00:00","2006-10-31T00:00:00","2006-11-30T00:00:00","2006-12-31T00:00:00","2007-01-31T00:00:00","2007-02-28T00:00:00","2007-03-31T00:00:00","2007-04-30T00:00:00","2007-05-31T00:00:00","2007-06-30T00:00:00","2007-07-31T00:00:00","2007-08-31T00:00:00","2007-09-30T00:00:00","2007-10-31T00:00:00","2007-11-30T00:00:00","2007-12-31T00:00:00","2008-01-31T00:00:00","2008-02-29T00:00:00","2008-03-31T00:00:00","2008-04-30T00:00:00","2008-05-31T00:00:00","2008-06-30T00:00:00","2008-07-31T00:00:00","2008-08-31T00:00:00","2008-09-30T00:00:00","2008-10-31T00:00:00","2008-11-30T00:00:00","2008-12-31T00:00:00","2009-01-31T00:00:00","2009-02-28T00:00:00","2009-03-31T00:00:00","2009-04-30T00:00:00","2009-05-31T00:00:00","2009-06-30T00:00:00","2009-07-31T00:00:00","2009-08-31T00:00:00","2009-09-30T00:00:00","2009-10-31T00:00:00","2009-11-30T00:00:00","2009-12-31T00:00:00","2010-01-31T00:00:00","2010-02-28T00:00:00","2010-03-31T00:00:00","2010-04-30T00:00:00","2010-05-31T00:00:00","2010-06-30T00:00:00","2010-07-31T00:00:00","2010-08-31T00:00:00","2010-09-30T00:00:00","2010-10-31T00:00:00","2010-11-30T00:00:00","2010-12-31T00:00:00","2011-01-31T00:00:00","2011-02-28T00:00:00","2011-03-31T00:00:00","2011-04-30T00:00:00","2011-05-31T00:00:00","2011-06-30T00:00:00","2011-07-31T00:00:00","2011-08-31T00:00:00","2011-09-30T00:00:00","2011-10-31T00:00:00","2011-11-30T00:00:00","2011-12-31T00:00:00","2012-01-31T00:00:00","2012-02-29T00:00:00","2012-03-31T00:00:00","2012-04-30T00:00:00","2012-05-31T00:00:00","2012-06-30T00:00:00","2012-07-31T00:00:00","2012-08-31T00:00:00","2012-09-30T00:00:00","2012-10-31T00:00:00","2012-11-30T00:00:00","2012-12-31T00:00:00","2013-01-31T00:00:00","2013-02-28T00:00:00","2013-03-31T00:00:00","2013-04-30T00:00:00","2013-05-31T00:00:00","2013-06-30T00:00:00","2013-07-31T00:00:00","2013-08-31T00:00:00","2013-09-30T00:00:00","2013-10-31T00:00:00","2013-11-30T00:00:00","2013-12-31T00:00:00","2014-01-31T00:00:00","2014-02-28T00:00:00","2014-03-31T00:00:00","2014-04-30T00:00:00","2014-05-31T00:00:00","2014-06-30T00:00:00","2014-07-31T00:00:00","2014-08-31T00:00:00","2014-09-30T00:00:00","2014-10-31T00:00:00","2014-11-30T00:00:00","2014-12-31T00:00:00","2015-01-31T00:00:00","2015-02-28T00:00:00","2015-03-31T00:00:00","2015-04-30T00:00:00","2015-05-31T00:00:00","2015-06-30T00:00:00","2015-07-31T00:00:00","2015-08-31T00:00:00","2015-09-30T00:00:00","2015-10-31T00:00:00","2015-11-30T00:00:00","2015-12-31T00:00:00","2016-01-31T00:00:00","2016-02-29T00:00:00","2016-03-31T00:00:00","2016-04-30T00:00:00","2016-05-31T00:00:00","2016-06-30T00:00:00","2016-07-31T00:00:00","2016-08-31T00:00:00","2016-09-30T00:00:00","2016-10-31T00:00:00","2016-11-30T00:00:00","2016-12-31T00:00:00","2017-01-31T00:00:00","2017-02-28T00:00:00","2017-03-31T00:00:00","2017-04-30T00:00:00","2017-05-31T00:00:00","2017-06-30T00:00:00","2017-07-31T00:00:00","2017-08-31T00:00:00","2017-09-30T00:00:00","2017-10-31T00:00:00","2017-11-30T00:00:00","2017-12-31T00:00:00","2018-01-31T00:00:00","2018-02-28T00:00:00","2018-03-31T00:00:00","2018-04-30T00:00:00","2018-05-31T00:00:00","2018-06-30T00:00:00","2018-07-31T00:00:00","2018-08-31T00:00:00","2018-09-30T00:00:00","2018-10-31T00:00:00","2018-11-30T00:00:00","2018-12-31T00:00:00","2019-01-31T00:00:00","2019-02-28T00:00:00","2019-03-31T00:00:00","2019-04-30T00:00:00","2019-05-31T00:00:00","2019-06-30T00:00:00","2019-07-31T00:00:00","2019-08-31T00:00:00","2019-09-30T00:00:00","2019-10-31T00:00:00","2019-11-30T00:00:00","2019-12-31T00:00:00","2020-01-31T00:00:00","2020-02-29T00:00:00","2020-03-31T00:00:00","2020-04-30T00:00:00","2020-05-31T00:00:00","2020-06-30T00:00:00","2020-07-31T00:00:00","2020-08-31T00:00:00","2020-09-30T00:00:00","2020-10-31T00:00:00","2020-11-30T00:00:00","2020-12-31T00:00:00","2021-01-31T00:00:00","2021-02-28T00:00:00","2021-03-31T00:00:00","2021-04-30T00:00:00","2021-05-31T00:00:00","2021-06-30T00:00:00","2021-07-31T00:00:00","2021-08-31T00:00:00","2021-09-30T00:00:00","2021-10-31T00:00:00","2021-11-30T00:00:00","2021-12-31T00:00:00","2022-01-31T00:00:00","2022-02-28T00:00:00","2022-03-31T00:00:00","2022-04-30T00:00:00","2022-05-31T00:00:00","2022-06-30T00:00:00","2022-07-31T00:00:00","2022-08-31T00:00:00","2022-09-30T00:00:00","2022-10-31T00:00:00","2022-11-30T00:00:00","2022-12-31T00:00:00","2023-01-31T00:00:00","2023-02-28T00:00:00","2023-03-31T00:00:00","2023-04-30T00:00:00","2023-05-31T00:00:00","2023-06-30T00:00:00","2023-07-31T00:00:00","2023-08-31T00:00:00","2023-09-30T00:00:00","2023-10-31T00:00:00","2023-11-30T00:00:00","2023-12-31T00:00:00","2024-01-31T00:00:00","2024-02-29T00:00:00","2024-03-31T00:00:00","2024-04-30T00:00:00","2024-05-31T00:00:00","2024-06-30T00:00:00","2024-07-31T00:00:00","2024-08-31T00:00:00","2024-09-30T00:00:00","2024-10-31T00:00:00","2024-11-30T00:00:00","2024-12-31T00:00:00","2025-01-31T00:00:00","2025-02-28T00:00:00","2025-03-31T00:00:00","2025-04-30T00:00:00","2025-05-31T00:00:00","2025-06-30T00:00:00","2025-07-31T00:00:00","2025-08-31T00:00:00","2025-09-30T00:00:00","2025-10-31T00:00:00"],"y":{"dtype":"f8","bdata":"\u002fkz\u002fvmzNCkGcTzX8lOoKQXMUSlsCCAtBbUzT4aNDC0HLZsrcY4ELQVOowVbZxQtBZz\u002fsW6QQDEH501r7TGAMQfcnAZTSsQxBoVfUHyIDDUEPWpEO91ENQQhEz89onA1BqHL3eljjDUF2UpeSFSwOQck6n92scg5BfOVsuQ26DkFY+DFVNAAPQXDCDgfBSw9B\u002fU0Eh7+YD0ErwX4Wb+sPQWtiFFlfIBBBbYicBFFOEEGomYSNk3oQQXyziq4mpRBBzKP+klbPEEE1oznGxvcQQYkqnGY4HhFBURguhr9CEUErlv8yzmgRQZ0P\u002fGPikxFBB6mBbonDEUFGcrRJAf0RQf\u002fuAmZ6OxJBQXxo60x7EkG4aC4LarYSQeHjcBJs8BJB0pb3IC8qE0HI+V07EWQTQdBgISAtoBNB\u002fcF255DZE0ETs6X3mhMUQfqMD1\u002f7TBRBkL4bvBmJFEGMyMzG7sQUQdmIPQMk\u002fRRBFcWNV7AxFUEhI8kDvGIVQU3XKhvJkRVBtSr9kO\u002fDFUFroNIrB\u002fYVQe9whdnaKRZBMdPCdHhcFkF5b7LjZ5YWQVsEU79h1hZBSZzc49kdF0HbaCiu52cXQchYm1u0tBdBUlnZ4r8BGEEMp\u002fatv0sYQRwh5np6kBhBCfV2afrQGEEU0Nsyow8ZQVgSeMZPTxlBZwxxc8+XGUEpf3eNZuYZQd0nvL8ANhpBJGKtQYGBGkEgE5hoGcwaQY08bkd6FxtBqIsy1WxkG0GV6qUAcKsbQfD+oZrw7xtBRAKOfOosHEFFjAYtmGkcQfniov1knRxBw5AqLAnMHEEdlZ8hVvQcQXguGNv2GR1BoLauc3s1HUENAqCH\u002fkIdQckuE1G1QR1BW2tXGk4zHUFmr3MyMB0dQTGTS3QgAx1BxOpfjTzqHEFTwhAVLNccQWR8+Xzq0hxBO39L3B7QHEGFSdYacM0cQZTs0w6auxxB2AcgzI6iHEF9zbwBbIccQVtYlhdRahxBVPg63qtUHEFvcdbK3j4cQRaId4zAKRxBz+lfWMQVHEHMuKkxegAcQfgszGIP5RtBk2rmXZHFG0GBH6P4r5gbQRYY1q7aahtB93ILRm84G0GxgbNHRwkbQfO\u002fWTal2BpBu4Km\u002fUukGkEcckL7cW0aQQcBYdLJOBpBLCkkDTECGkFt2azrL80ZQQNpKYgImhlBaYLPDB5oGUEYzjO+Cj0ZQfwnKd7zERlBYCQFRbbpGEHkDiH8Ar8YQX3onUifmxhBOMQDkDaAGEFJcrHhsW4YQXQB82\u002fJYxhBfZrmh+tfGEF\u002frjZIf2IYQeXuT9foYRhB7Jol1dBhGEH6bpOnBl8YQeNzWXAIZRhBBL\u002fQCMJrGEFgCjtt024YQcnW5r\u002fhZxhBT+J2UOtVGEGzNtzk+DwYQXc95jD+HhhBgGdf6ssHGEFdTUtmofUXQfDVPt5c6xdB7JtZxUzcF0G+IyKO9soXQcAiiwp3shdBTkVOqoKZF0G\u002fzn8rDYAXQY9dP7JiZxdB0P5BLZVOF0EN6cMfITQXQU1lw3f4GxdBRYtvW8gFF0HDltHkIfgWQXGGMzc39xZBUBxnT2H\u002fFkE7OiGd7wwXQUWMXFOyFBdBH9MZzVEaF0Gvur\u002fu1RgXQeQjTqSvGhdBBcRQ9PUZF0GLEExcbBwXQT+11pwuHRdBu3FZYjooF0HVF7NuMDcXQVSyfPzsRxdBUmcobeJWF0EQq+VbPWkXQTDTf+JeghdBNchuJ6CdF0GH+P5VdbwXQehUe1Sd2xdBSLa61oH7F0GbyuMgxBIYQTPztUCeIhhBiJC9fh81GEHzz0ymjlAYQXUxaG1KeBhB213rWZyjGEHxWSU\u002fOc4YQaXh9d7N6hhBWPLsKGL6GEE59BW4lgEZQdQ813vVDRlBqVES4wAdGUEcotxymzAZQUmU3VWePRlBKppzxelFGUFdL28BDkkZQe+k4zR8UBlBcwt6NBtaGUE79gZEWW0ZQbAB0XYEgBlBhX+cEMmVGUGmPXYDk7EZQX0hxMLV2RlBQTMUH58IGkG30mSmWjIaQaBsPhuBVhpBjBgq3hZyGkENJQ6nPYcaQaCKJeqykhpB7OJLAyWiGkEljQBVHrYaQXU4HZGhzxpBw0lEDCPjGkFVDiHD\u002fOwaQZCxuKql8hpB0M7dKbX+GkGgVlox\u002fBYbQdlv8opkPhtB4yI2pCtlG0GAHtDbjo0bQTgPZaysshtBwkbMeXjhG0HlUyVhiAocQXUieHTBLRxBOzh0An1GHEHh9wLrrl8cQdWTYxjpeBxBE9QfmFWVHEEVyz9K4q0cQdkn2OFuyRxBmSCsSsHkHEHTr567PP0cQTD1WoyVGR1BdyiRa0M3HUGorPnYCmAdQQs42A3Sgh1BPmMB7dGoHUGYlI6Xk8gdQQ4t1W+a5R1B3Cszobj1HUFwDnNDnQMeQVci3AtPDR5BiLpexLUdHkFRlo7VbjYeQT1GLTL\u002fVR5B9\u002fHJ0GB4HkGVUiE7M48eQd9UZPdPox5Be8VhokmuHkFBmp9DA7YeQW+wvpvGsR5Bc+P0KVOyHkEZ8KDur8EeQYyFT5zp2x5BbGpH3oACH0F89Hx1+iUfQQx3pwrITh9B8A1JYuFzH0FdUDeTSJEfQV0f0iyvlh9BsIbYEDCIH0G0q0KGWX0fQTzTMrzVlx9BfLx1dYXSH0G2xZvkvRMgQdXjGQieRSBBM3Yr8hV1IEEBhARztaYgQdkiIy3G1CBB5qgiuPECIUElRLkwdi8hQdxjktxiVyFBCGmyL6x4IUEoEq6WtIwhQVeKyGvvmCFB69yFkzCqIUFV65fb38UhQUsubRQX5SFBDR40ZkYGIkEheyyrzioiQbVRemmcXCJBe8iHFgORIkHVak0t48UiQWMq03FD9iJBxZDQagwVI0EWmNnVxRojQaNFYl7mBiNB1VPUPJHyIkFIr9nFhOIiQcFC8psv1yJB5dp0Ka\u002fQIkFRDN546sUiQdkL7jpryCJBh1YzlFrYIkFge1S2VvgiQRBkOUxuGSNBZ\u002fv+zAQ2I0Hwqm7zM1AjQRM1rdzXZSNBL6OEYnh4I0FreiNF0oojQeSZahrBoCNBYY0+AKa3I0GfQu6KstcjQc3dFHqGAiRBhOO7mvAyJEGyABId3VckQZCo97ZHcCRB1ui\u002fVgyGJEHM4O0FtqMkQSyG\u002fZGfwyRBxafMtY3fJEEj1VzegvUkQeyww8qmAyVBeLvSJyUMJUH9dyRjThYlQWkUYm+mIyVBTT+chco2JUHI3O5nskQlQYKeCT9MUCVBV5ryGoRZJUGMsbkQul8lQW0gVOe8aiVBc6Q8chl9JUE="},"type":"scatter"},{"mode":"lines","name":"Los Angeles, CA","visible":false,"x":["2000-01-31T00:00:00","2000-02-29T00:00:00","2000-03-31T00:00:00","2000-04-30T00:00:00","2000-05-31T00:00:00","2000-06-30T00:00:00","2000-07-31T00:00:00","2000-08-31T00:00:00","2000-09-30T00:00:00","2000-10-31T00:00:00","2000-11-30T00:00:00","2000-12-31T00:00:00","2001-01-31T00:00:00","2001-02-28T00:00:00","2001-03-31T00:00:00","2001-04-30T00:00:00","2001-05-31T00:00:00","2001-06-30T00:00:00","2001-07-31T00:00:00","2001-08-31T00:00:00","2001-09-30T00:00:00","2001-10-31T00:00:00","2001-11-30T00:00:00","2001-12-31T00:00:00","2002-01-31T00:00:00","2002-02-28T00:00:00","2002-03-31T00:00:00","2002-04-30T00:00:00","2002-05-31T00:00:00","2002-06-30T00:00:00","2002-07-31T00:00:00","2002-08-31T00:00:00","2002-09-30T00:00:00","2002-10-31T00:00:00","2002-11-30T00:00:00","2002-12-31T00:00:00","2003-01-31T00:00:00","2003-02-28T00:00:00","2003-03-31T00:00:00","2003-04-30T00:00:00","2003-05-31T00:00:00","2003-06-30T00:00:00","2003-07-31T00:00:00","2003-08-31T00:00:00","2003-09-30T00:00:00","2003-10-31T00:00:00","2003-11-30T00:00:00","2003-12-31T00:00:00","2004-01-31T00:00:00","2004-02-29T00:00:00","2004-03-31T00:00:00","2004-04-30T00:00:00","2004-05-31T00:00:00","2004-06-30T00:00:00","2004-07-31T00:00:00","2004-08-31T00:00:00","2004-09-30T00:00:00","2004-10-31T00:00:00","2004-11-30T00:00:00","2004-12-31T00:00:00","2005-01-31T00:00:00","2005-02-28T00:00:00","2005-03-31T00:00:00","2005-04-30T00:00:00","2005-05-31T00:00:00","2005-06-30T00:00:00","2005-07-31T00:00:00","2005-08-31T00:00:00","2005-09-30T00:00:00","2005-10-31T00:00:00","2005-11-30T00:00:00","2005-12-31T00:00:00","2006-01-31T00:00:00","2006-02-28T00:00:00","2006-03-31T00:00:00","2006-04-30T00:00:00","2006-05-31T00:00:00","2006-06-30T00:00:00","2006-07-31T00:00:00","2006-08-31T00:00:00","2006-09-30T00:00:00","2006-10-31T00:00:00","2006-11-30T00:00:00","2006-12-31T00:00:00","2007-01-31T00:00:00","2007-02-28T00:00:00","2007-03-31T00:00:00","2007-04-30T00:00:00","2007-05-31T00:00:00","2007-06-30T00:00:00","2007-07-31T00:00:00","2007-08-31T00:00:00","2007-09-30T00:00:00","2007-10-31T00:00:00","2007-11-30T00:00:00","2007-12-31T00:00:00","2008-01-31T00:00:00","2008-02-29T00:00:00","2008-03-31T00:00:00","2008-04-30T00:00:00","2008-05-31T00:00:00","2008-06-30T00:00:00","2008-07-31T00:00:00","2008-08-31T00:00:00","2008-09-30T00:00:00","2008-10-31T00:00:00","2008-11-30T00:00:00","2008-12-31T00:00:00","2009-01-31T00:00:00","2009-02-28T00:00:00","2009-03-31T00:00:00","2009-04-30T00:00:00","2009-05-31T00:00:00","2009-06-30T00:00:00","2009-07-31T00:00:00","2009-08-31T00:00:00","2009-09-30T00:00:00","2009-10-31T00:00:00","2009-11-30T00:00:00","2009-12-31T00:00:00","2010-01-31T00:00:00","2010-02-28T00:00:00","2010-03-31T00:00:00","2010-04-30T00:00:00","2010-05-31T00:00:00","2010-06-30T00:00:00","2010-07-31T00:00:00","2010-08-31T00:00:00","2010-09-30T00:00:00","2010-10-31T00:00:00","2010-11-30T00:00:00","2010-12-31T00:00:00","2011-01-31T00:00:00","2011-02-28T00:00:00","2011-03-31T00:00:00","2011-04-30T00:00:00","2011-05-31T00:00:00","2011-06-30T00:00:00","2011-07-31T00:00:00","2011-08-31T00:00:00","2011-09-30T00:00:00","2011-10-31T00:00:00","2011-11-30T00:00:00","2011-12-31T00:00:00","2012-01-31T00:00:00","2012-02-29T00:00:00","2012-03-31T00:00:00","2012-04-30T00:00:00","2012-05-31T00:00:00","2012-06-30T00:00:00","2012-07-31T00:00:00","2012-08-31T00:00:00","2012-09-30T00:00:00","2012-10-31T00:00:00","2012-11-30T00:00:00","2012-12-31T00:00:00","2013-01-31T00:00:00","2013-02-28T00:00:00","2013-03-31T00:00:00","2013-04-30T00:00:00","2013-05-31T00:00:00","2013-06-30T00:00:00","2013-07-31T00:00:00","2013-08-31T00:00:00","2013-09-30T00:00:00","2013-10-31T00:00:00","2013-11-30T00:00:00","2013-12-31T00:00:00","2014-01-31T00:00:00","2014-02-28T00:00:00","2014-03-31T00:00:00","2014-04-30T00:00:00","2014-05-31T00:00:00","2014-06-30T00:00:00","2014-07-31T00:00:00","2014-08-31T00:00:00","2014-09-30T00:00:00","2014-10-31T00:00:00","2014-11-30T00:00:00","2014-12-31T00:00:00","2015-01-31T00:00:00","2015-02-28T00:00:00","2015-03-31T00:00:00","2015-04-30T00:00:00","2015-05-31T00:00:00","2015-06-30T00:00:00","2015-07-31T00:00:00","2015-08-31T00:00:00","2015-09-30T00:00:00","2015-10-31T00:00:00","2015-11-30T00:00:00","2015-12-31T00:00:00","2016-01-31T00:00:00","2016-02-29T00:00:00","2016-03-31T00:00:00","2016-04-30T00:00:00","2016-05-31T00:00:00","2016-06-30T00:00:00","2016-07-31T00:00:00","2016-08-31T00:00:00","2016-09-30T00:00:00","2016-10-31T00:00:00","2016-11-30T00:00:00","2016-12-31T00:00:00","2017-01-31T00:00:00","2017-02-28T00:00:00","2017-03-31T00:00:00","2017-04-30T00:00:00","2017-05-31T00:00:00","2017-06-30T00:00:00","2017-07-31T00:00:00","2017-08-31T00:00:00","2017-09-30T00:00:00","2017-10-31T00:00:00","2017-11-30T00:00:00","2017-12-31T00:00:00","2018-01-31T00:00:00","2018-02-28T00:00:00","2018-03-31T00:00:00","2018-04-30T00:00:00","2018-05-31T00:00:00","2018-06-30T00:00:00","2018-07-31T00:00:00","2018-08-31T00:00:00","2018-09-30T00:00:00","2018-10-31T00:00:00","2018-11-30T00:00:00","2018-12-31T00:00:00","2019-01-31T00:00:00","2019-02-28T00:00:00","2019-03-31T00:00:00","2019-04-30T00:00:00","2019-05-31T00:00:00","2019-06-30T00:00:00","2019-07-31T00:00:00","2019-08-31T00:00:00","2019-09-30T00:00:00","2019-10-31T00:00:00","2019-11-30T00:00:00","2019-12-31T00:00:00","2020-01-31T00:00:00","2020-02-29T00:00:00","2020-03-31T00:00:00","2020-04-30T00:00:00","2020-05-31T00:00:00","2020-06-30T00:00:00","2020-07-31T00:00:00","2020-08-31T00:00:00","2020-09-30T00:00:00","2020-10-31T00:00:00","2020-11-30T00:00:00","2020-12-31T00:00:00","2021-01-31T00:00:00","2021-02-28T00:00:00","2021-03-31T00:00:00","2021-04-30T00:00:00","2021-05-31T00:00:00","2021-06-30T00:00:00","2021-07-31T00:00:00","2021-08-31T00:00:00","2021-09-30T00:00:00","2021-10-31T00:00:00","2021-11-30T00:00:00","2021-12-31T00:00:00","2022-01-31T00:00:00","2022-02-28T00:00:00","2022-03-31T00:00:00","2022-04-30T00:00:00","2022-05-31T00:00:00","2022-06-30T00:00:00","2022-07-31T00:00:00","2022-08-31T00:00:00","2022-09-30T00:00:00","2022-10-31T00:00:00","2022-11-30T00:00:00","2022-12-31T00:00:00","2023-01-31T00:00:00","2023-02-28T00:00:00","2023-03-31T00:00:00","2023-04-30T00:00:00","2023-05-31T00:00:00","2023-06-30T00:00:00","2023-07-31T00:00:00","2023-08-31T00:00:00","2023-09-30T00:00:00","2023-10-31T00:00:00","2023-11-30T00:00:00","2023-12-31T00:00:00","2024-01-31T00:00:00","2024-02-29T00:00:00","2024-03-31T00:00:00","2024-04-30T00:00:00","2024-05-31T00:00:00","2024-06-30T00:00:00","2024-07-31T00:00:00","2024-08-31T00:00:00","2024-09-30T00:00:00","2024-10-31T00:00:00","2024-11-30T00:00:00","2024-12-31T00:00:00","2025-01-31T00:00:00","2025-02-28T00:00:00","2025-03-31T00:00:00","2025-04-30T00:00:00","2025-05-31T00:00:00","2025-06-30T00:00:00","2025-07-31T00:00:00","2025-08-31T00:00:00","2025-09-30T00:00:00","2025-10-31T00:00:00"],"y":{"dtype":"f8","bdata":"cLlPf8MHC0Gs7wGTgyELQV2SaSjQQwtBdenTkQ6IC0H5mR65sdILQTK\u002fDxHPHAxBQ287p8hoDEGxO0aJe7UMQacfnm67\u002fQxB7Z+xVD8+DUGmhJaJk3gNQT3veFDxsg1BeI8eNnXdDUHcLKFXuQsOQX3o6cVKQA5Boaci4pSNDkFAeHkrSd4OQc1VFmVrKw9BInE+gOV4D0HV4g+FXsYPQa\u002fM\u002fQLsCRBBi+e\u002f\u002fHEvEEGcK1X92lAQQRzJVOEYchBBgOL9rWqMEEF1+mz6EKsQQW\u002fcuegM0RBBaeD4hnQEEUHkvONzpD8RQb9ISLHdfRFBe9TmlljIEUGP6uF\u002fjxcSQbEzFZohaBJBpIJOxN+xEkG+hZwfBPkSQVm7xH2UPhNBZGysuEp5E0HcMqHjSbATQZPCHTW\u002f6xNBPYsfregwFEHfWD3ujIMUQdIPyxNJzRRB+8U9TQojFUFAvbh01H0VQWErQsM75RVB5QmGWOFBFkHM9GzsV5kWQfuXHB3\u002f7hZBCNNJ+8JMF0FY2H1aK7cXQYAWkdWTMRhBzMkMNm3BGEFZPsG4YmwZQSs2HWeQHRpBnEyx1MTCGkHp6cUPzVAbQWdMnbko1xtBqMc5vZhYHEH8nqhpm7kcQcAmT7xeEh1BF3oqgx5fHUGQyTi7V78dQbWzRXk4KR5BnEuNqbeaHkHpNVvzdAgfQQDAtWHScB9BcV3YKqLlH0EqrIxFxjIgQecYnDiidSBBtdTNASe6IEEBgXCGuO8gQZQ2lzYWIiFBe3a0MhlNIUF8kOFhAnUhQQ8M6Rh4mSFBC7JyP5a5IUHnek\u002fJ5NwhQSBVuBdw+iFBIunRNo8IIkE77z5gMxQiQb9iIGnPDiJBgZWxbE4OIkFnL6mKMQgiQVf3FuPDBiJBoceIdwEHIkFovr565QQiQWngxMye\u002fSFBfwtMyVHwIUHlooV8VdghQbRUlgqnviFBg3sxoJaWIUFhdKLMO2khQZrHlb4mMyFB65CcZuj8IEFqxJN74c8gQUA0+asSniBBZyYqoE1uIEFrFBFkPi4gQZnCP5mryB9BqHfvba4JH0FTRUpj6zgeQUWZBPbKbh1BEN3ScfizHEGlug4HyA4cQbttdgAvkBtBU6GhmDMeG0Ff3iOOtqkaQQV+CiocGRpBdcQOXAOfGUFX0+PvR08ZQYEObjQGGBlBtR6kSVTnGEEEG84oL7cYQYvF7YeIgBhB+BrxZfNTGEEHK+V31zQYQTd6Alg7LBhBPa\u002f1Cz8wGEF\u002fbG3Ynk4YQag1RLc7iBhBzf2Vjl2sGEGY9BIzRLEYQa0zyVnktBhBkSvW56HTGEHqHMSB7wAZQbh0f+5OBBlBkILUGKfoGEFS\u002f2jV0a8YQT6qs5u6dBhBnLVXwV85GEEgYGsTuAEYQbjqrbte4xdBG8ZDZ5XSF0HTPS7lUtEXQeyZmgNqvhdBm1mVvN2lF0F\u002feAv\u002f0GkXQbGrAnVISRdBffo3pmgxF0HDAhBYKBYXQSiUWjAx4RZBoo\u002fViMWnFkGtGh8mvJEWQbZO1MAWjRZBhBE9n+iEFkFsmsiKZWwWQcUUmFEnRRZBtImm0ZYhFkGXZEtmhhAWQVCQ3Im1FhZBfX3nMm00FkGXJKV8kXMWQQ0aZXWjzRZBNVlmd5E4F0FwAh90IKgXQcgrRIMzFhhBywEOoHdsGEEkmnZW5aMYQQuSqBw4wxhBTpzirU\u002fyGEGpaER73kMZQUnxOQ+VsRlBg85qwEQqGkFQWB1m46caQTtJK95qLRtBixOuCaSzG0EQ8+KCwiUcQYctMry0gBxB7Gc3ebawHEG9PGFEfsYcQVNV2mHIzRxBJ4exWPTmHEFZvIyzoQgdQa9DsJFkKB1BRL0BDFBGHUGIsNXkr24dQW+TJ78ttB1BZ349IY8FHkGkoNFKcl0eQS+Pb1Eeqh5BP9dtYBvfHkFHAsH3pfoeQeiVlBCFAB9BSXqkTNACH0GBqbvnqwwfQSCM2iZLIB9BQ4sYL90rH0F4G3WnChofQZWmbhin7B5B2UR8GMi2HkEU5RKI4X0eQbeSuPs4SR5BPbfH1KlwHkGANp3GMfgeQdQ0eGS3sx9BTk2KF+cgIEH5vxDKR00gQVGHKhAjcSBBp+T8OJ91IEEwlR6FyVogQV91VTX\u002fJyBBkPVJRz4EIEH4dxp3VPgfQdWFapQsCiBBQSwB+jRHIEHBa4g\u002fc6EgQSw\u002f0HLnCiFB6ak\u002fDONWIUFsZ5u\u002fuYohQSJ69wBzsSFB06G+lii6IUFHdalMKbkhQecTTb+dtiFBuQEOx3rQIUH7bmy7k\u002fAhQdBLgSGMFyJBl\u002fdz0ZxKIkG5L1TezogiQT2hnungwyJB3yQMUdvwIkFoZWi+6hQjQa8uda\u002f6LyNBe\u002f9ijExMI0Ei1kNw6HYjQYF9Gc7FryNB5IAemCvsI0GbxdwN7xYkQfmQb+i5LSRBCts4BNIaJEE\u002fsK+NhukjQY80Q118rSNBQxmJHzeHI0Gv2Tt8uXMjQQmn793aaSNB7csqUk9wI0GYpp5cx40jQTyfY743viNBCQVElRLyI0FhvHqkUiEkQStLW7IyTCRBxX0tnGNlJEF7xugyXnEkQS44Lh1ddyRBfOCYZ+l+JEGpOAhzj3ckQXn4BOpyYSRBxa3ajPleJEEP\u002fGSOa4YkQaR6Lgr72iRB2FgrfzVAJUE3ElOxT7AlQc3xwrpCGyZBg6nqz0ljJkHfum5eOZAmQY37pKEyqSZBtU11+nzeJkG8w\u002fEDCyonQZATDq9ohydBfS\u002fJZiPjJ0GQVJ03UikoQSuA5q+2XyhBTI6OpkKUKEG\u002f\u002fpb8ldUoQUNKTkITJClBGMU7WW+CKUF43SgUEPIpQfDBzAiIbypBMLYT8FbhKkHh3Ov9zTorQQX4gPE9bStBANZqTY17K0EkBYD6emMrQbgMcTwnNytBhdTmj\u002fANK0EPDpOVofAqQWWpOQEs2CpB73a5uECXKkHlRrnP8EEqQatfFp2G9SlBUKexS+3iKUHUC3GVhgAqQR2scz2HPSpBDzne9ziVKkHRUuAzU\u002f8qQZTIXMd0aitBAHW9FpfDK0HFGYkgqwYsQW2fm1bKMCxBCDC5Gf4xLEHw8g9F4BosQYzHPgciEixBTOwo+EstLEFfft2CeVssQZ3hTNp1eixB4E9WfcOcLEGPzT6racUsQajF49rE9yxB78B2cLQgLUHlzhWy+UMtQbDrmHiAYy1BbCzkn7NnLUFTq+lk21ctQU1qLQIRMC1Btk0agVwOLUEqfbZoGOksQUgLtdsZxyxBAylN7tyyLEGJeSGof6osQT6HjtG\u002fsixB6vC8MJ3FLEE="},"type":"scatter"},{"mode":"lines","name":"San Diego, CA","visible":false,"x":["2000-01-31T00:00:00","2000-02-29T00:00:00","2000-03-31T00:00:00","2000-04-30T00:00:00","2000-05-31T00:00:00","2000-06-30T00:00:00","2000-07-31T00:00:00","2000-08-31T00:00:00","2000-09-30T00:00:00","2000-10-31T00:00:00","2000-11-30T00:00:00","2000-12-31T00:00:00","2001-01-31T00:00:00","2001-02-28T00:00:00","2001-03-31T00:00:00","2001-04-30T00:00:00","2001-05-31T00:00:00","2001-06-30T00:00:00","2001-07-31T00:00:00","2001-08-31T00:00:00","2001-09-30T00:00:00","2001-10-31T00:00:00","2001-11-30T00:00:00","2001-12-31T00:00:00","2002-01-31T00:00:00","2002-02-28T00:00:00","2002-03-31T00:00:00","2002-04-30T00:00:00","2002-05-31T00:00:00","2002-06-30T00:00:00","2002-07-31T00:00:00","2002-08-31T00:00:00","2002-09-30T00:00:00","2002-10-31T00:00:00","2002-11-30T00:00:00","2002-12-31T00:00:00","2003-01-31T00:00:00","2003-02-28T00:00:00","2003-03-31T00:00:00","2003-04-30T00:00:00","2003-05-31T00:00:00","2003-06-30T00:00:00","2003-07-31T00:00:00","2003-08-31T00:00:00","2003-09-30T00:00:00","2003-10-31T00:00:00","2003-11-30T00:00:00","2003-12-31T00:00:00","2004-01-31T00:00:00","2004-02-29T00:00:00","2004-03-31T00:00:00","2004-04-30T00:00:00","2004-05-31T00:00:00","2004-06-30T00:00:00","2004-07-31T00:00:00","2004-08-31T00:00:00","2004-09-30T00:00:00","2004-10-31T00:00:00","2004-11-30T00:00:00","2004-12-31T00:00:00","2005-01-31T00:00:00","2005-02-28T00:00:00","2005-03-31T00:00:00","2005-04-30T00:00:00","2005-05-31T00:00:00","2005-06-30T00:00:00","2005-07-31T00:00:00","2005-08-31T00:00:00","2005-09-30T00:00:00","2005-10-31T00:00:00","2005-11-30T00:00:00","2005-12-31T00:00:00","2006-01-31T00:00:00","2006-02-28T00:00:00","2006-03-31T00:00:00","2006-04-30T00:00:00","2006-05-31T00:00:00","2006-06-30T00:00:00","2006-07-31T00:00:00","2006-08-31T00:00:00","2006-09-30T00:00:00","2006-10-31T00:00:00","2006-11-30T00:00:00","2006-12-31T00:00:00","2007-01-31T00:00:00","2007-02-28T00:00:00","2007-03-31T00:00:00","2007-04-30T00:00:00","2007-05-31T00:00:00","2007-06-30T00:00:00","2007-07-31T00:00:00","2007-08-31T00:00:00","2007-09-30T00:00:00","2007-10-31T00:00:00","2007-11-30T00:00:00","2007-12-31T00:00:00","2008-01-31T00:00:00","2008-02-29T00:00:00","2008-03-31T00:00:00","2008-04-30T00:00:00","2008-05-31T00:00:00","2008-06-30T00:00:00","2008-07-31T00:00:00","2008-08-31T00:00:00","2008-09-30T00:00:00","2008-10-31T00:00:00","2008-11-30T00:00:00","2008-12-31T00:00:00","2009-01-31T00:00:00","2009-02-28T00:00:00","2009-03-31T00:00:00","2009-04-30T00:00:00","2009-05-31T00:00:00","2009-06-30T00:00:00","2009-07-31T00:00:00","2009-08-31T00:00:00","2009-09-30T00:00:00","2009-10-31T00:00:00","2009-11-30T00:00:00","2009-12-31T00:00:00","2010-01-31T00:00:00","2010-02-28T00:00:00","2010-03-31T00:00:00","2010-04-30T00:00:00","2010-05-31T00:00:00","2010-06-30T00:00:00","2010-07-31T00:00:00","2010-08-31T00:00:00","2010-09-30T00:00:00","2010-10-31T00:00:00","2010-11-30T00:00:00","2010-12-31T00:00:00","2011-01-31T00:00:00","2011-02-28T00:00:00","2011-03-31T00:00:00","2011-04-30T00:00:00","2011-05-31T00:00:00","2011-06-30T00:00:00","2011-07-31T00:00:00","2011-08-31T00:00:00","2011-09-30T00:00:00","2011-10-31T00:00:00","2011-11-30T00:00:00","2011-12-31T00:00:00","2012-01-31T00:00:00","2012-02-29T00:00:00","2012-03-31T00:00:00","2012-04-30T00:00:00","2012-05-31T00:00:00","2012-06-30T00:00:00","2012-07-31T00:00:00","2012-08-31T00:00:00","2012-09-30T00:00:00","2012-10-31T00:00:00","2012-11-30T00:00:00","2012-12-31T00:00:00","2013-01-31T00:00:00","2013-02-28T00:00:00","2013-03-31T00:00:00","2013-04-30T00:00:00","2013-05-31T00:00:00","2013-06-30T00:00:00","2013-07-31T00:00:00","2013-08-31T00:00:00","2013-09-30T00:00:00","2013-10-31T00:00:00","2013-11-30T00:00:00","2013-12-31T00:00:00","2014-01-31T00:00:00","2014-02-28T00:00:00","2014-03-31T00:00:00","2014-04-30T00:00:00","2014-05-31T00:00:00","2014-06-30T00:00:00","2014-07-31T00:00:00","2014-08-31T00:00:00","2014-09-30T00:00:00","2014-10-31T00:00:00","2014-11-30T00:00:00","2014-12-31T00:00:00","2015-01-31T00:00:00","2015-02-28T00:00:00","2015-03-31T00:00:00","2015-04-30T00:00:00","2015-05-31T00:00:00","2015-06-30T00:00:00","2015-07-31T00:00:00","2015-08-31T00:00:00","2015-09-30T00:00:00","2015-10-31T00:00:00","2015-11-30T00:00:00","2015-12-31T00:00:00","2016-01-31T00:00:00","2016-02-29T00:00:00","2016-03-31T00:00:00","2016-04-30T00:00:00","2016-05-31T00:00:00","2016-06-30T00:00:00","2016-07-31T00:00:00","2016-08-31T00:00:00","2016-09-30T00:00:00","2016-10-31T00:00:00","2016-11-30T00:00:00","2016-12-31T00:00:00","2017-01-31T00:00:00","2017-02-28T00:00:00","2017-03-31T00:00:00","2017-04-30T00:00:00","2017-05-31T00:00:00","2017-06-30T00:00:00","2017-07-31T00:00:00","2017-08-31T00:00:00","2017-09-30T00:00:00","2017-10-31T00:00:00","2017-11-30T00:00:00","2017-12-31T00:00:00","2018-01-31T00:00:00","2018-02-28T00:00:00","2018-03-31T00:00:00","2018-04-30T00:00:00","2018-05-31T00:00:00","2018-06-30T00:00:00","2018-07-31T00:00:00","2018-08-31T00:00:00","2018-09-30T00:00:00","2018-10-31T00:00:00","2018-11-30T00:00:00","2018-12-31T00:00:00","2019-01-31T00:00:00","2019-02-28T00:00:00","2019-03-31T00:00:00","2019-04-30T00:00:00","2019-05-31T00:00:00","2019-06-30T00:00:00","2019-07-31T00:00:00","2019-08-31T00:00:00","2019-09-30T00:00:00","2019-10-31T00:00:00","2019-11-30T00:00:00","2019-12-31T00:00:00","2020-01-31T00:00:00","2020-02-29T00:00:00","2020-03-31T00:00:00","2020-04-30T00:00:00","2020-05-31T00:00:00","2020-06-30T00:00:00","2020-07-31T00:00:00","2020-08-31T00:00:00","2020-09-30T00:00:00","2020-10-31T00:00:00","2020-11-30T00:00:00","2020-12-31T00:00:00","2021-01-31T00:00:00","2021-02-28T00:00:00","2021-03-31T00:00:00","2021-04-30T00:00:00","2021-05-31T00:00:00","2021-06-30T00:00:00","2021-07-31T00:00:00","2021-08-31T00:00:00","2021-09-30T00:00:00","2021-10-31T00:00:00","2021-11-30T00:00:00","2021-12-31T00:00:00","2022-01-31T00:00:00","2022-02-28T00:00:00","2022-03-31T00:00:00","2022-04-30T00:00:00","2022-05-31T00:00:00","2022-06-30T00:00:00","2022-07-31T00:00:00","2022-08-31T00:00:00","2022-09-30T00:00:00","2022-10-31T00:00:00","2022-11-30T00:00:00","2022-12-31T00:00:00","2023-01-31T00:00:00","2023-02-28T00:00:00","2023-03-31T00:00:00","2023-04-30T00:00:00","2023-05-31T00:00:00","2023-06-30T00:00:00","2023-07-31T00:00:00","2023-08-31T00:00:00","2023-09-30T00:00:00","2023-10-31T00:00:00","2023-11-30T00:00:00","2023-12-31T00:00:00","2024-01-31T00:00:00","2024-02-29T00:00:00","2024-03-31T00:00:00","2024-04-30T00:00:00","2024-05-31T00:00:00","2024-06-30T00:00:00","2024-07-31T00:00:00","2024-08-31T00:00:00","2024-09-30T00:00:00","2024-10-31T00:00:00","2024-11-30T00:00:00","2024-12-31T00:00:00","2025-01-31T00:00:00","2025-02-28T00:00:00","2025-03-31T00:00:00","2025-04-30T00:00:00","2025-05-31T00:00:00","2025-06-30T00:00:00","2025-07-31T00:00:00","2025-08-31T00:00:00","2025-09-30T00:00:00","2025-10-31T00:00:00"],"y":{"dtype":"f8","bdata":"8wI6dAw\u002fCkFYmJVwplkKQUgdmifleQpBwFUb2+fCCkEusPU7xRELQUvl5Wn\u002fdAtBRc3pshfnC0GxBM\u002f\u002fQmQMQc55ptQ52gxB+5UuHeg+DUEJQb+dIaENQZUk5b4O+A1Bb1ETcdpDDkED\u002fx4f1JkOQduxyibDCA9BE9NuZ7eSD0GbbJJAzwgQQUES1QpyOhBBj\u002fM0dRRiEEFXOnurpocQQRVtPEUUsRBB3clGtP\u002faEEHIdiv2pAQRQTf6FL41JhFBP18tYBhGEUE90EWe32QRQVBrPtj6ixFBBGoiPpK6EUGnK9LmbvQRQSOh1Lt4NBJBaAFFKBGEEkGhLwSD9toSQTX854afNRNBnIB1ZDCOE0FqOFP3d98TQWzxPro1NRRBJA1vVziAFEEFsdxkIMcUQZAQn7leDxVBfwVr499bFUH4FD3mk7AVQYxGHkqH+hVBwXo3UTdUFkHbV305QqkWQYz9Ll48DRdB99YYXWZlF0HjGL9+8boXQTj24xM54xdBayjR7V8gGEGFQOSZ3XwYQTjyjh7xAhlBr5xmdx6CGUEsjghNkgIaQQTKDmbvxBpBt4JAz6qTG0FEOAGRsF0cQeCJlzsZ\u002fxxBH\u002fOqZO2THUGreiu78wweQb+w+5AOdB5BzJX0AQ64HkHZ1D2i4vAeQfvSiW78Qx9BjEjWp4WxH0HdyY6CEBMgQcpDTxKQMSBBKCqnEwNCIEGd29adJU8gQWkkUnjoWiBBkebjzJBhIEHfM8cNgGMgQYZgVQhOZCBB7AmTkQttIEExl3DAHGwgQQPnTum9bCBBD+v3BwtoIEEZFoPwMW8gQW8DoOFUbCBBm3Na2dZdIEHRYeYsqEMgQZGkJcVpKiBBudrt\u002fusUIEEruNulVwggQSxZfuFH9h9BzxyQOa7fH0ERxd0RSL8fQZjLEvDEdR9B6Yx+woUiH0FcEXKs0sYeQaey349OgR5BxNM7RBM3HkFjisenmQAeQai8\u002f97vvx1B4ep\u002f8Vd9HUHBVytFbygdQUlH4gIn5BxBQWUmpO6LHEExr7O4xB4cQft7hso4nxtBVchxz9QyG0H4snZIcLsaQUp5F9+bPxpBuBXO5WeyGUE35VKKvygZQehyl6CPixhBPUhXkz78F0FPCldvnngXQfFmU+J7GRdBG2\u002fUhxXIFkEQGGJFM5MWQSyUNBKZcxZBg3ZnRUg2FkG0CLtb2QUWQS3gs1lctRVB3TsM\u002fIeXFUF99BgHMW8VQbjYquI9dBVBzpXrz6Z6FUFDQ9PkGqgVQSZhBOTG2hVBl+A9KBMOFkFMvwfkIC4WQWGkjPSeTRZBvJmXj3WAFkGdYA13dpUWQa0vUfdrmBZBNXsyHWl8FkHUIOX5wl8WQbxtj8R9NRZBJ6KaG8j5FUGbfe3nocMVQefJaeN3qBVBE5yB2HSYFUHUUt5ehYoVQQ1ACH2XaBVBcBCJwAVQFUFf7EnRGzcVQXt4gk4sKRVBbSvIELkSFUHPU9VVZeUUQXP62fQcshRBKZzQcluGFEF\u002fYvv\u002fT3IUQXnx2JexYRRBdKd7vVZmFEGnnb\u002fDxnIUQYfaRWw1ghRBnQKDhnZ+FEFBOkHcaoIUQUXTaXT\u002fnRRBQ+k6YAu+FEHttc4htOUUQdP5sBGxEhVBMMYMomVSFUG8JplOzpkVQbvgOz545RVBU50phFc2FkGXbOsoG4gWQVQ9HhEIzhZBP00\u002fzYMZF0E8jK9UNHgXQcfFUfUn9BdB9BlVXRloGEEdkjEjBdIYQQaq5fd4LxlBqJCJU36JGUHPUb+xDssZQVTZNoI+\u002fBlBUf7Zz8QkGkHZPNTu71QaQe8ROV6qhRpBKCVVCXa9GkFvS4jzxvEaQSya4bYOIRtB4kOblSIwG0GD0f5+JzUbQeeE0vtCPhtBEaAcxnNeG0G85YLOAIkbQTkbrbrFsxtBG7OalzLjG0FKiDl65xUcQSrnMl9+SBxBlXEf\u002f890HEFLx2799J4cQY0MOpaByhxB4QEz8e3rHEGLJFoWiREdQVV5sW0MQh1BYwevVHSJHUF1uG7t\u002ftEdQWhwvnh3Ex5BILJfs3xXHkFY2DU6LJgeQQjaLzMsxx5BVazmDNPiHkHM0WvswvIeQVCU4FrJDh9BMBVNT9AkH0FHxC+kJkEfQazwhkqMWB9B2twbsymIH0E4U7Amfr8fQbfHiHz9BSBBHrPNkfgoIEHdQj8rc0ogQehV5jWFYSBBLMEnqst5IEHwWuXGCY4gQa14YB80qCBBQ\u002fQqkwW7IEG10wySoNQgQWHL4Ga17SBB3ZR12xIRIUHl7hYF8y8hQVRRmYLQUiFB1sq6tPZvIUGw2hIZGIkhQVXX+VaImSFB6GyfCICnIUFBa953JbkhQd\u002fG1IEOxyFBSd0Njp\u002fTIUGVaEKm\u002fN0hQWtTAtur5yFBLCj2do\u002fxIUEEeufrdvYhQTTdpP\u002fc9CFBDzUuHmDxIUFkO0XQs+8hQffRP\u002f8w9yFB\u002f9VEu40BIkEhE6ISWwciQV89yuJPCyJBy7QVpF8LIkGtboO+DhEiQX\u002filCCJFCJB66KMRmQdIkE1E62D2S0iQXwYO2XqRiJB46ludSVkIkFpkQ7L0IQiQbCVhX2RqCJBU9+CpVLNIkFpRLL\u002f2d8iQcDwHWTX4SJBpISe5lngIkGna0zgxvMiQd4mlmYQJiNBTB4T429sI0EBqenMvcUjQd2UVCpLIiRByNSPjDh8JEFjuNdpG9EkQdMafw+EKiVBdLp8XvaTJUFLKnyMTA4mQdT7RJSViiZBg2hMNfHuJkF5O0+q0SUnQc3uEy2jOidBxBd2zflMJ0GlXYHxWnUnQVPv65vUtSdB2RSgTlQrKEF7ICZZINUoQTWpYdC1qilBhZQU7YNtKkFncD3EuPwqQTvA7LI3SytBgV1hq8BNK0GMSwrt8Q4rQYjztuXvpypBNykEB1hLKkFlCTztBQUqQQ1kk3MZ0SlBu4jnEWOZKUEgs5GxYXEpQdVskoNmYylBC8vbQ+B7KUEX\u002fLsTO7ApQY2Qc5eG+SlBtfdX3Y5RKkH\u002fVObMpa0qQeh3esqfBitB75sDmJ9PK0ECAw2D3IErQfi6C65enCtB4HzMEiiuK0Eq2Y6ks9ErQUilrn0PEixB3BUJfFxiLEGCGJs3EqcsQa90xo88yixB76SXjoLVLEHj9QSzCtIsQWjbdwSCzixBceeGuenILEGLI8XcasosQRxuQU1mzixBWX2ckDjPLEEdA5RoBsssQd2KE+NluixBp23mea+hLEF49tGq9HssQS9Ldj77UixBlPmbrbwwLEH0QDuk+BUsQRTHIxVzByxBwOkHAjMHLEE="},"type":"scatter"},{"mode":"lines","name":"Dallas, TX","visible":false,"x":["2000-01-31T00:00:00","2000-02-29T00:00:00","2000-03-31T00:00:00","2000-04-30T00:00:00","2000-05-31T00:00:00","2000-06-30T00:00:00","2000-07-31T00:00:00","2000-08-31T00:00:00","2000-09-30T00:00:00","2000-10-31T00:00:00","2000-11-30T00:00:00","2000-12-31T00:00:00","2001-01-31T00:00:00","2001-02-28T00:00:00","2001-03-31T00:00:00","2001-04-30T00:00:00","2001-05-31T00:00:00","2001-06-30T00:00:00","2001-07-31T00:00:00","2001-08-31T00:00:00","2001-09-30T00:00:00","2001-10-31T00:00:00","2001-11-30T00:00:00","2001-12-31T00:00:00","2002-01-31T00:00:00","2002-02-28T00:00:00","2002-03-31T00:00:00","2002-04-30T00:00:00","2002-05-31T00:00:00","2002-06-30T00:00:00","2002-07-31T00:00:00","2002-08-31T00:00:00","2002-09-30T00:00:00","2002-10-31T00:00:00","2002-11-30T00:00:00","2002-12-31T00:00:00","2003-01-31T00:00:00","2003-02-28T00:00:00","2003-03-31T00:00:00","2003-04-30T00:00:00","2003-05-31T00:00:00","2003-06-30T00:00:00","2003-07-31T00:00:00","2003-08-31T00:00:00","2003-09-30T00:00:00","2003-10-31T00:00:00","2003-11-30T00:00:00","2003-12-31T00:00:00","2004-01-31T00:00:00","2004-02-29T00:00:00","2004-03-31T00:00:00","2004-04-30T00:00:00","2004-05-31T00:00:00","2004-06-30T00:00:00","2004-07-31T00:00:00","2004-08-31T00:00:00","2004-09-30T00:00:00","2004-10-31T00:00:00","2004-11-30T00:00:00","2004-12-31T00:00:00","2005-01-31T00:00:00","2005-02-28T00:00:00","2005-03-31T00:00:00","2005-04-30T00:00:00","2005-05-31T00:00:00","2005-06-30T00:00:00","2005-07-31T00:00:00","2005-08-31T00:00:00","2005-09-30T00:00:00","2005-10-31T00:00:00","2005-11-30T00:00:00","2005-12-31T00:00:00","2006-01-31T00:00:00","2006-02-28T00:00:00","2006-03-31T00:00:00","2006-04-30T00:00:00","2006-05-31T00:00:00","2006-06-30T00:00:00","2006-07-31T00:00:00","2006-08-31T00:00:00","2006-09-30T00:00:00","2006-10-31T00:00:00","2006-11-30T00:00:00","2006-12-31T00:00:00","2007-01-31T00:00:00","2007-02-28T00:00:00","2007-03-31T00:00:00","2007-04-30T00:00:00","2007-05-31T00:00:00","2007-06-30T00:00:00","2007-07-31T00:00:00","2007-08-31T00:00:00","2007-09-30T00:00:00","2007-10-31T00:00:00","2007-11-30T00:00:00","2007-12-31T00:00:00","2008-01-31T00:00:00","2008-02-29T00:00:00","2008-03-31T00:00:00","2008-04-30T00:00:00","2008-05-31T00:00:00","2008-06-30T00:00:00","2008-07-31T00:00:00","2008-08-31T00:00:00","2008-09-30T00:00:00","2008-10-31T00:00:00","2008-11-30T00:00:00","2008-12-31T00:00:00","2009-01-31T00:00:00","2009-02-28T00:00:00","2009-03-31T00:00:00","2009-04-30T00:00:00","2009-05-31T00:00:00","2009-06-30T00:00:00","2009-07-31T00:00:00","2009-08-31T00:00:00","2009-09-30T00:00:00","2009-10-31T00:00:00","2009-11-30T00:00:00","2009-12-31T00:00:00","2010-01-31T00:00:00","2010-02-28T00:00:00","2010-03-31T00:00:00","2010-04-30T00:00:00","2010-05-31T00:00:00","2010-06-30T00:00:00","2010-07-31T00:00:00","2010-08-31T00:00:00","2010-09-30T00:00:00","2010-10-31T00:00:00","2010-11-30T00:00:00","2010-12-31T00:00:00","2011-01-31T00:00:00","2011-02-28T00:00:00","2011-03-31T00:00:00","2011-04-30T00:00:00","2011-05-31T00:00:00","2011-06-30T00:00:00","2011-07-31T00:00:00","2011-08-31T00:00:00","2011-09-30T00:00:00","2011-10-31T00:00:00","2011-11-30T00:00:00","2011-12-31T00:00:00","2012-01-31T00:00:00","2012-02-29T00:00:00","2012-03-31T00:00:00","2012-04-30T00:00:00","2012-05-31T00:00:00","2012-06-30T00:00:00","2012-07-31T00:00:00","2012-08-31T00:00:00","2012-09-30T00:00:00","2012-10-31T00:00:00","2012-11-30T00:00:00","2012-12-31T00:00:00","2013-01-31T00:00:00","2013-02-28T00:00:00","2013-03-31T00:00:00","2013-04-30T00:00:00","2013-05-31T00:00:00","2013-06-30T00:00:00","2013-07-31T00:00:00","2013-08-31T00:00:00","2013-09-30T00:00:00","2013-10-31T00:00:00","2013-11-30T00:00:00","2013-12-31T00:00:00","2014-01-31T00:00:00","2014-02-28T00:00:00","2014-03-31T00:00:00","2014-04-30T00:00:00","2014-05-31T00:00:00","2014-06-30T00:00:00","2014-07-31T00:00:00","2014-08-31T00:00:00","2014-09-30T00:00:00","2014-10-31T00:00:00","2014-11-30T00:00:00","2014-12-31T00:00:00","2015-01-31T00:00:00","2015-02-28T00:00:00","2015-03-31T00:00:00","2015-04-30T00:00:00","2015-05-31T00:00:00","2015-06-30T00:00:00","2015-07-31T00:00:00","2015-08-31T00:00:00","2015-09-30T00:00:00","2015-10-31T00:00:00","2015-11-30T00:00:00","2015-12-31T00:00:00","2016-01-31T00:00:00","2016-02-29T00:00:00","2016-03-31T00:00:00","2016-04-30T00:00:00","2016-05-31T00:00:00","2016-06-30T00:00:00","2016-07-31T00:00:00","2016-08-31T00:00:00","2016-09-30T00:00:00","2016-10-31T00:00:00","2016-11-30T00:00:00","2016-12-31T00:00:00","2017-01-31T00:00:00","2017-02-28T00:00:00","2017-03-31T00:00:00","2017-04-30T00:00:00","2017-05-31T00:00:00","2017-06-30T00:00:00","2017-07-31T00:00:00","2017-08-31T00:00:00","2017-09-30T00:00:00","2017-10-31T00:00:00","2017-11-30T00:00:00","2017-12-31T00:00:00","2018-01-31T00:00:00","2018-02-28T00:00:00","2018-03-31T00:00:00","2018-04-30T00:00:00","2018-05-31T00:00:00","2018-06-30T00:00:00","2018-07-31T00:00:00","2018-08-31T00:00:00","2018-09-30T00:00:00","2018-10-31T00:00:00","2018-11-30T00:00:00","2018-12-31T00:00:00","2019-01-31T00:00:00","2019-02-28T00:00:00","2019-03-31T00:00:00","2019-04-30T00:00:00","2019-05-31T00:00:00","2019-06-30T00:00:00","2019-07-31T00:00:00","2019-08-31T00:00:00","2019-09-30T00:00:00","2019-10-31T00:00:00","2019-11-30T00:00:00","2019-12-31T00:00:00","2020-01-31T00:00:00","2020-02-29T00:00:00","2020-03-31T00:00:00","2020-04-30T00:00:00","2020-05-31T00:00:00","2020-06-30T00:00:00","2020-07-31T00:00:00","2020-08-31T00:00:00","2020-09-30T00:00:00","2020-10-31T00:00:00","2020-11-30T00:00:00","2020-12-31T00:00:00","2021-01-31T00:00:00","2021-02-28T00:00:00","2021-03-31T00:00:00","2021-04-30T00:00:00","2021-05-31T00:00:00","2021-06-30T00:00:00","2021-07-31T00:00:00","2021-08-31T00:00:00","2021-09-30T00:00:00","2021-10-31T00:00:00","2021-11-30T00:00:00","2021-12-31T00:00:00","2022-01-31T00:00:00","2022-02-28T00:00:00","2022-03-31T00:00:00","2022-04-30T00:00:00","2022-05-31T00:00:00","2022-06-30T00:00:00","2022-07-31T00:00:00","2022-08-31T00:00:00","2022-09-30T00:00:00","2022-10-31T00:00:00","2022-11-30T00:00:00","2022-12-31T00:00:00","2023-01-31T00:00:00","2023-02-28T00:00:00","2023-03-31T00:00:00","2023-04-30T00:00:00","2023-05-31T00:00:00","2023-06-30T00:00:00","2023-07-31T00:00:00","2023-08-31T00:00:00","2023-09-30T00:00:00","2023-10-31T00:00:00","2023-11-30T00:00:00","2023-12-31T00:00:00","2024-01-31T00:00:00","2024-02-29T00:00:00","2024-03-31T00:00:00","2024-04-30T00:00:00","2024-05-31T00:00:00","2024-06-30T00:00:00","2024-07-31T00:00:00","2024-08-31T00:00:00","2024-09-30T00:00:00","2024-10-31T00:00:00","2024-11-30T00:00:00","2024-12-31T00:00:00","2025-01-31T00:00:00","2025-02-28T00:00:00","2025-03-31T00:00:00","2025-04-30T00:00:00","2025-05-31T00:00:00","2025-06-30T00:00:00","2025-07-31T00:00:00","2025-08-31T00:00:00","2025-09-30T00:00:00","2025-10-31T00:00:00"],"y":{"dtype":"f8","bdata":"GckTUKQc\u002f0BqQ653MCD\u002fQIcj+3tEJP9AOeiur9su\u002f0C01fFU0jz\u002fQO1bd5z0Sv9AUdrfU8ZZ\u002f0AhvZRI+W\u002f\u002fQFwYRDXLi\u002f9AY3mtwXGr\u002f0AdOuw3Q8n\u002fQJCN7Hvs5f9A8GWS4Yb0\u002f0AcIYzbjOj\u002fQHdXBlTz1v9AYfd4YgrN\u002f0CN0mZkKNT\u002fQAMV\u002fgZt2v9Amlik\u002fLPg\u002f0A1synfg\u002fD\u002fQHuPoVoGAABB\u002fytlYswGAEFY+Z0FkwkAQZm3wN\u002fTDABBVKuLEGQPAEEiOVKyUhUAQafDSp9NHgBBZe4pvfssAEGbRai3eTwAQRvU8oeLUABBg3fDjmVkAEFCYZEjuHgAQYhr06EWiQBBdWtaHgqXAEGoDEMFWKMAQaOhrjIurgBB4P7ltfW1AEEB7Mn9WboAQZWyiPECvwBBz6AIMPDEAEEGlfaNCcsAQT+873Sk0QBBr7jbc5nVAEFPU6BF99oAQeOTsPOs4ABBs8z85FboAEE5BU7a8e4AQYgN0UOe8ABBMYyXum3\u002fAEFAkmYDjCEBQQAAAAAAAPh\u002f7z8XJSmXAUHHZHCbx78BQT+FQXMj1QFBX1kTaD3gAUGUT1rJXO0BQRSjWZQL+gFBdOoJWtEGAkEHfkfPRBACQR79XIssFwJBVMCAUR0nAkF47ErHOTECQV2oumuzOQJBKURegho+AkHzdM8LeEgCQZpUQKvmVQJBV012SwpgAkFZpOUaXmoCQTklvWYxdQJBJ+tYMDF5AkGFBV8MNn0CQZYVe7rwewJBKX2zrgB7AkFzZBspnn4CQZRQw0lhhAJBecgA6ZiSAkHpgb0EjqQCQRN9riQ0uAJBe9w049rFAkEclZjVMM0CQeX6MBhD1QJBdZdvf8voAkFmxSrFlvkCQatJsxQ7CgNBp7LHEj8HA0EMtvGcEfwCQdiWmrnV7AJBxAaItCDsAkHYggWOsPUCQbi9+cRaAgNBXzCDgr4OA0GlPxkMxRsDQdVWJlXbLANBfFjrgJA5A0EDFFLeJEIDQd5\u002f07CySANBr8TLq7s2A0Eb2CHktxYDQYWkvnjh6gJB\u002fj0g9VPQAkHLlZsNtL4CQfyPCl2VswJBjO6YwKGtAkEhWlanT6ACQaNA8CzHiQJBW5hI4TJrAkH7aUvd0k8CQTUW0EjWOwJBI+9Ewx0tAkFFY2cfDCoCQU9p66etKwJBRZKPku8xAkHIiIl4KjcCQXlxz4LcNwJBKAuHtmQ5AkGvC5WzHDUCQcMEv2yKMwJBzOXWVEExAkFsf4tW3TsCQfwZh2+FRwJBUzm27nlKAkGrmVVL4UUCQeSjEBKbPgJBH1FomdRCAkE\u002fBIk0KUYCQe9OLFKWSAJBw5paEK49AkHYmxVEbSkCQU\u002fShLd9DQJBq7H6vXXyAUEpic7N5tYBQaG13Tv8wwFBIwtiLbC1AUEpS\u002fhApKYBQePszrCmlgFBHlWtSLWBAUHomVflNnIBQdVf3dtSYQFBLrLwl\u002fVaAUG3ZOT7e1YBQSUnoUcpVwFBYkmLMfNUAUGZNh2TBVEBQXqUiaqaRwFBmGq9xeI+AUHG18SPKEQBQXyhn6wAUwFBodQT4\u002fRmAUHlROZI93gBQSF6f\u002fx3jwFBj5wme3OpAUF768X6ob8BQYQq15\u002fL1QFBXWK7blbuAUHJoN3PxAkCQe3vpkKBIQJB3FnczdU6AkGTSlKKblcCQY\u002fEhbvzdAJBoNJauHGOAkErbgYmO6sCQZWO6mmW0AJBFSv4qLT3AkHPQx2ieRoDQUcs5SWTOANBXy2Q4pdaA0E7g67JZH0DQQMpt6vaoANB9\u002fxJswDFA0ER96yTk+kDQYhF2HodDARB63fue54nBEFBBLhVG0QEQbNB8mJgYwRBI8IeOgWKBEHY61oqW60EQTv2M+CizgRBi9A+cZfpBEH7PSESMA0FQas\u002fagUvMwVBof3J6sxgBUEjQHeHf5AFQUz1BBSsvwVBr6h1zg7rBUGTJ6q5dxgGQeQ5U7KASgZBA1QrtxyEBkGCyKGQAb4GQdl8gCSZ+gZBCFMxxdk2B0FNP8DIgHIHQYApataRrQdB27EU3QHsB0EwL2MoaiwIQeMID1edZAhBpRm3HgOeCEG+xVACuNQIQZv0UIsZDwlBZcyajQJBCUGogMbocm8JQbOZ6O1AoglBlc4s9LPYCUGgRWslWxYKQRUd3NJGUQpB8xX16\u002fiMCkGOLW0KXcUKQU1YQVmyAQtBxjRt7j5DC0F7rPgOGYELQQU9abHNuQtBzVTTAUflC0FUjmXVjg4MQfc1GEh9OQxBWQVswh5qDEFZRhmZj58MQY3htBuR2QxBpKLCQTkVDUHV7W71rk4NQUgXXgC1iA1BCQ\u002fBDnG8DUF5mfIcEe0NQdksAcoxDg5B6i+QOkIwDkGHX9Yp2UkOQZW1RMQpYQ5BTISPFdJuDkHMQmYhAX4OQadSkbAGlA5BN36wQ8SwDkH77XbU6M8OQSVJqNmx6g5B5pbhmGv5DkH5LTV4eP8OQZJTlYJaAQ9BcQ4xIVsED0GB7Ios5QsPQT8TRuHOFw9BCP34DmMtD0Gkj6Tt3UsPQcjRSw2acQ9Bpxb7V3GhD0HSGITV\u002fNEPQS3ZBekSABBB8R9TMjkMEEEvQCTVEwwQQd1+pKezCBBBIE6kGVYOEEGWhnV8oSQQQcWQVSdXSxBBQaJx+aJ7EEFF999kIrQQQZC9Z5U47RBBMUQKjpcpEUGpQaM6dmkRQQ+8bCqmsBFBEm6agVb\u002fEUFCMEYYAFoSQdGWOY7ouBJBJXLHcOYOE0F8gDmLi1ETQWvRJ9yvhRNBpVY+RCi9E0F8F4czmgEUQUnu1LgqUBRB5PKOFli9FEGHwPj5ZEAVQZ8ofrcb1RVBPl1zEQZoFkGzZDDlA+0WQbcdutMEXxdB0wFpaaOdF0GszYEvCagXQXwgVeRfjRdB32CzQgptF0F8t8UtCk8XQdFwjvXRLxdBs+SVy5cHF0E4MuJzu+MWQRycg+5nyxZBZIsDzKzCFkEqyj+AM8cWQRyOUmYn1BZBzw5pN5\u002fjFkFspbK1N\u002fIWQfhMmOLJ+BZBczw185n6FkF02JmxZ\u002fgWQW+\u002fA6U+8xZBUcetXZbzFkEz0I4wNPsWQfWW5599DRdBr606L8ocF0F6MPicDx8XQUc61KKRFBdBA9gADb8FF0E41t4zdvsWQWgLV6pW+BZBD5kDw6r2FkHVDI2aHfIWQeO4pCLY6RZBUDJ9fJfhFkE5PrGrTtUWQXRp+MXdvRZBROsRtq6cFkElW35M\u002fXYWQd9WZ\u002f4bUhZBvGg5\u002fqUyFkG7u7QiZh0WQdG4reNNExZBJNtlsN0NFkE="},"type":"scatter"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"white","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"#C8D4E3","linecolor":"#C8D4E3","minorgridcolor":"#C8D4E3","startlinecolor":"#2a3f5f"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"geo":{"bgcolor":"white","lakecolor":"white","landcolor":"white","showlakes":true,"showland":true,"subunitcolor":"#C8D4E3"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"light"},"margin":{"b":0,"l":0,"r":0,"t":30},"paper_bgcolor":"white","plot_bgcolor":"white","polar":{"angularaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""},"bgcolor":"white","radialaxis":{"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"yaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"},"zaxis":{"backgroundcolor":"white","gridcolor":"#DFE8F3","gridwidth":2,"linecolor":"#EBF0F8","showbackground":true,"ticks":"","zerolinecolor":"#EBF0F8"}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"ternary":{"aaxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"baxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""},"bgcolor":"white","caxis":{"gridcolor":"#DFE8F3","linecolor":"#A2B1C6","ticks":""}},"title":{"x":0.05},"xaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#EBF0F8","linecolor":"#EBF0F8","ticks":"","title":{"standoff":15},"zerolinecolor":"#EBF0F8","zerolinewidth":2}}},"updatemenus":[{"buttons":[{"args":[{"visible":[true,false,false,false]},{"title":"Housing Prices in New York, NY"}],"label":"New York, NY","method":"update"},{"args":[{"visible":[false,true,false,false]},{"title":"Housing Prices in Los Angeles, CA"}],"label":"Los Angeles, CA","method":"update"},{"args":[{"visible":[false,false,true,false]},{"title":"Housing Prices in San Diego, CA"}],"label":"San Diego, CA","method":"update"},{"args":[{"visible":[false,false,false,true]},{"title":"Housing Prices in Dallas, TX"}],"label":"Dallas, TX","method":"update"}],"direction":"down","showactive":true}],"title":{"text":"Housing Prices in New York, NY"},"xaxis":{"title":{"text":"Date"}},"yaxis":{"title":{"text":"Price"}}},                        {"responsive": true}                    ).then(function(){
+                            
+var gd = document.getElementById('b0470c3c-0cdb-45c8-b042-8c3983b0b7af');
+var x = new MutationObserver(function (mutations, observer) {{
+        var display = window.getComputedStyle(gd).display;
+        if (!display || display === 'none') {{
+            console.log([gd, 'removed!']);
+            Plotly.purge(gd);
+            observer.disconnect();
+        }}
+}});
+
+// Listen for the removal of the full notebook cells
+var notebookContainer = gd.closest('#notebook-container');
+if (notebookContainer) {{
+    x.observe(notebookContainer, {childList: true});
+}}
+
+// Listen for the clearing of the current output cell
+var outputEl = gd.closest('.output');
+if (outputEl) {{
+    x.observe(outputEl, {childList: true});
+}}
+
+                        })                };            </script>        </div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>© 2026 Lele Liao · Portfolio</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -11,6 +11,8 @@ website:
         text: About
       - href: projects.qmd
         text: Projects
+      - href: presentation.qmd
+        text: Presentations
       - href: resume.qmd
         text: Resume
 

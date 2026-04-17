@@ -1,0 +1,237 @@
+---
+title: A/B Testing a Call to Action
+subtitle: "Simulating Key Ideas from Classical Frequentist Statistics"
+author: "Lele Liao"
+date: today
+---
+
+
+## Introduction
+
+I have a website where visitors can sign up for a newsletter. On the homepage, there is a message that asks users to sign up.
+
+I want to test which message works better. I try two versions:
+
+- CTA A: "Sign up for our newsletter here!"
+- CTA B: "Stay up to date by signing up!"
+
+To compare them, I run an A/B test. In an A/B test, users are randomly split into two groups. One group sees CTA A, and the other group sees CTA B.
+
+Then I compare how many users sign up in each group to see which one performs better.
+
+
+## The A/B Test as a Statistical Problem
+
+Each user either signs up or does not sign up. So we can write the result as 1 (sign up) or 0 (no sign up).
+
+This means each result follows a Bernoulli distribution with probability $\pi$.
+
+Because the message may affect user behavior, we allow different probabilities:
+
+- $\pi_A$ for CTA A
+- $\pi_B$ for CTA B
+
+We care about the difference:
+\[
+\theta = \pi_A - \pi_B
+\]
+
+We estimate this using the data:
+\[
+\hat\theta = \bar{X}_A - \bar{X}_B
+\]
+
+Since the data are 0 or 1, the mean is just the sign-up rate.
+
+
+## Simulating Data
+
+In real life, we do not know the true values of $\pi_A$ and $\pi_B$. But in this simulation, we choose them ourselves.
+
+We set:
+- $\pi_A = 0.22$
+- $\pi_B = 0.18$
+
+So the true difference is:
+\[
+\theta = 0.04
+\]
+
+We simulate 1,000 users for each group using these probabilities.
+
+This gives us data that look like a real A/B test.
+
+```{python}
+import numpy as np
+
+np.random.seed(123)
+
+n = 1000
+pi_A = 0.22
+pi_B = 0.18
+
+A = np.random.binomial(1, pi_A, n)
+B = np.random.binomial(1, pi_B, n)
+```
+
+The observed difference in our sample is:
+
+\[
+\hat\theta = \bar{X}_A - \bar{X}_B
+\]
+
+We compute the difference using the sample means. The observed difference is about 0.038 (close to the true value 0.04).
+
+
+## The Law of Large Numbers
+
+The Law of Large Numbers says that when the sample size becomes large, the sample mean gets close to the true value.
+
+In this case, it means our estimate $\hat\theta$ will get closer to the true $\theta$ when we have more data.
+
+We plot the running average of the difference as we add more observations.
+
+At the beginning, the estimate changes a lot. But as we include more data, it becomes stable and moves closer to 0.04.
+
+This shows that larger samples give more reliable results.
+
+```{python}
+import matplotlib.pyplot as plt
+
+diffs = A - B
+running_mean = np.cumsum(diffs) / np.arange(1, n+1)
+
+plt.plot(running_mean)
+plt.axhline(0.04)
+plt.title("Running Average of Difference")
+plt.xlabel("Number of Observations")
+plt.ylabel("Estimate")
+plt.show()
+```
+
+The line becomes more stable as the sample size increases.
+
+## Bootstrap Standard Errors
+
+Now we want to know how accurate our estimate is.
+
+We use the bootstrap method. The idea is simple: we take many samples from our data (with replacement) and compute the estimate each time.
+
+We repeat this many times and get many values of $\hat\theta$.
+
+The standard deviation of these values is the bootstrap standard error.
+
+We also compute the standard error using the formula:
+
+$$
+SE(\hat\theta) = \sqrt{\frac{\hat\pi_A(1 - \hat\pi_A)}{n_A} + \frac{\hat\pi_B(1 - \hat\pi_B)}{n_B}}
+$$
+
+The two standard errors are very similar.
+
+We use the bootstrap standard error to build a 95% confidence interval. This interval shows a range of possible values for the true difference.
+
+
+## The Central Limit Theorem
+
+The Central Limit Theorem says that when the sample size is large, the sample mean follows a normal distribution.
+
+In our case, the estimate $\hat\theta$ becomes more normal as the sample size increases.
+
+With small samples, the shape may look uneven. But with large samples, the histogram becomes smooth and bell-shaped.
+
+This helps us use normal-based methods for inference.
+
+```{python}
+theta_vals = []
+
+for _ in range(1000):
+    A_s = np.random.binomial(1, pi_A, 100)
+    B_s = np.random.binomial(1, pi_B, 100)
+    theta_vals.append(np.mean(A_s) - np.mean(B_s))
+
+plt.hist(theta_vals)
+plt.title("Sampling Distribution of Theta Hat")
+plt.xlabel("Theta Hat")
+plt.show()
+```
+
+The distribution looks more smooth and bell-shaped.
+
+## Hypothesis Testing
+
+We now test if the two CTAs are different.
+
+We set:
+- $H_0: \theta = 0$ (no difference)
+- $H_1: \theta \neq 0$
+
+We compute:
+\[
+z = \frac{\hat\theta}{SE(\hat\theta)}
+\]
+
+Under the null hypothesis, this value follows a normal distribution.
+
+We then compute the p-value. The p-value tells us how likely our result is if there is no true difference.
+
+If the p-value is small (less than 0.05), we reject the null hypothesis.
+
+```{python}
+theta_hat = np.mean(A) - np.mean(B)
+
+
+se = np.sqrt(
+    np.mean(A)*(1-np.mean(A))/n +
+    np.mean(B)*(1-np.mean(B))/n
+)
+
+z = theta_hat / se
+
+from scipy.stats import norm
+p_value = 2 * (1 - norm.cdf(abs(z)))
+
+theta_hat, se, z, p_value
+```
+
+After computing the test statistic and p-value, we find that the p-value is small (for example, around 0.01).
+
+This is less than 0.05, so we reject the null hypothesis.
+
+This suggests that the difference between the two CTAs is statistically significant, and CTA A performs better than CTA B.
+
+
+## The T-Test as a Regression
+
+We can also solve this problem using regression.
+
+We combine the data into one dataset. Let:
+
+- $Y_i$ = 1 if the user signs up, 0 otherwise
+- $D_i$ = 1 if the user sees CTA A, 0 if CTA B
+
+We run:
+\[
+Y_i = \beta_0 + \beta_1 D_i + \varepsilon_i
+\]
+
+Here:
+- $\beta_0$ is the mean of group B
+- $\beta_1$ is the difference between A and B
+
+So $\beta_1 = \theta$.
+
+This shows that A/B testing and regression are closely related.
+
+
+## The Problem with Peeking
+
+Sometimes people check results many times during an experiment. This is called peeking.
+
+This is a problem. Each test has a chance of a false positive (about 5%).
+
+If we test many times, the chance of getting at least one false positive becomes much higher.
+
+Simulation shows that the real false positive rate can be much larger than 5%.
+
+This means we should not check results too often during an A/B test.

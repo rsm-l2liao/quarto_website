@@ -25,14 +25,14 @@
     "href": "projects/HousingMarket/index.html",
     "title": "Housing Market Dashboard",
     "section": "",
-    "text": "📌 Project Goal\nThis project investigates how income levels influence both housing prices and rental prices across U.S. regions, aiming to identify patterns, correlations, and regional disparities in the housing market.\n\n\n🔍 Interpretation\nThe analysis indicates that income is a key driver of both housing and rental prices. However, its impact varies across regions due to factors such as housing supply, population density, and local economic conditions.\nWhile higher income generally leads to higher housing costs, regional disparities highlight the complexity of housing market dynamics."
+    "text": "Project Goal\nThis project investigates how income levels influence both housing prices and rental prices across U.S. regions, aiming to identify patterns, correlations, and regional disparities in the housing market.\n\n\nInterpretation\nThe analysis indicates that income is a key driver of both housing and rental prices. However, its impact varies across regions due to factors such as housing supply, population density, and local economic conditions.\nWhile higher income generally leads to higher housing costs, regional disparities highlight the complexity of housing market dynamics."
   },
   {
     "objectID": "projects.html",
     "href": "projects.html",
     "title": "My Projects",
     "section": "",
-    "text": "Housing Dashboard (Plotly)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHousing Market Dashboard\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "A/B Testing a Call to Action\n\n\n\n\n\n\nLele Liao\n\n\nApr 16, 2026\n\n\n\n\n\n\n\n\n\n\n\nHousing Dashboard (Plotly)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHousing Market Dashboard\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -180,5 +180,117 @@
     "title": "Deploying Dashboards in Quarto",
     "section": "Comparison",
     "text": "Comparison\n\n\n\nTableau\nPlotly\n\n\n\n\nEasy to use\nRequires coding\n\n\nExternal platform\nNo hosting needed\n\n\nLess flexible\nHighly customizable\n\n\n\n\nLive Demo\nhttps://rsm-l2liao.github.io/quarto_website/projects.html"
+  },
+  {
+    "objectID": "presentation/Liao_Lele-deploying_dashboard.html#tableau-deployment",
+    "href": "presentation/Liao_Lele-deploying_dashboard.html#tableau-deployment",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "",
+    "text": "Publish to Tableau Public\nCopy embed code\nPaste into Quarto"
+  },
+  {
+    "objectID": "presentation/Liao_Lele-deploying_dashboard.html#comparison",
+    "href": "presentation/Liao_Lele-deploying_dashboard.html#comparison",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "Comparison",
+    "text": "Comparison\n\n\n\nTableau\nPlotly\n\n\n\n\nEasy to use\nRequires coding\n\n\nExternal platform\nNo hosting needed\n\n\nLess flexible\nHighly customizable\n\n\n\n\n\nLive Demo\nhttps://rsm-l2liao.github.io/quarto_website/projects.html"
+  },
+  {
+    "objectID": "projects/ABTest/hw1_questions.html",
+    "href": "projects/ABTest/hw1_questions.html",
+    "title": "A/B Testing a Call to Action",
+    "section": "",
+    "text": "I have a website where visitors can sign up for a newsletter. On the homepage, there is a message that asks users to sign up.\nI want to test which message works better. I try two versions:\n\nCTA A: “Sign up for our newsletter here!”\nCTA B: “Stay up to date by signing up!”\n\nTo compare them, I run an A/B test. In an A/B test, users are randomly split into two groups. One group sees CTA A, and the other group sees CTA B.\nThen I compare how many users sign up in each group to see which one performs better."
+  },
+  {
+    "objectID": "projects/ABTest/hw1_questions.html#introduction",
+    "href": "projects/ABTest/hw1_questions.html#introduction",
+    "title": "A/B Testing a Call to Action",
+    "section": "",
+    "text": "I have a website where visitors can sign up for a newsletter. On the homepage, there is a message that asks users to sign up.\nI want to test which message works better. I try two versions:\n\nCTA A: “Sign up for our newsletter here!”\nCTA B: “Stay up to date by signing up!”\n\nTo compare them, I run an A/B test. In an A/B test, users are randomly split into two groups. One group sees CTA A, and the other group sees CTA B.\nThen I compare how many users sign up in each group to see which one performs better."
+  },
+  {
+    "objectID": "projects/ABTest/hw1_questions.html#the-ab-test-as-a-statistical-problem",
+    "href": "projects/ABTest/hw1_questions.html#the-ab-test-as-a-statistical-problem",
+    "title": "A/B Testing a Call to Action",
+    "section": "The A/B Test as a Statistical Problem",
+    "text": "The A/B Test as a Statistical Problem\nEach user either signs up or does not sign up. So we can write the result as 1 (sign up) or 0 (no sign up).\nThis means each result follows a Bernoulli distribution with probability \\(\\pi\\).\nBecause the message may affect user behavior, we allow different probabilities:\n\n\\(\\pi_A\\) for CTA A\n\\(\\pi_B\\) for CTA B\n\nWe care about the difference: [ = _A - _B ]\nWe estimate this using the data: [ = {X}_A - {X}_B ]\nSince the data are 0 or 1, the mean is just the sign-up rate."
+  },
+  {
+    "objectID": "projects/ABTest/hw1_questions.html#simulating-data",
+    "href": "projects/ABTest/hw1_questions.html#simulating-data",
+    "title": "A/B Testing a Call to Action",
+    "section": "Simulating Data",
+    "text": "Simulating Data\nIn real life, we do not know the true values of \\(\\pi_A\\) and \\(\\pi_B\\). But in this simulation, we choose them ourselves.\nWe set: - \\(\\pi_A = 0.22\\) - \\(\\pi_B = 0.18\\)\nSo the true difference is: [ = 0.04 ]\nWe simulate 1,000 users for each group using these probabilities.\nThis gives us data that look like a real A/B test.\n\nimport numpy as np\n\nnp.random.seed(123)\n\nn = 1000\npi_A = 0.22\npi_B = 0.18\n\nA = np.random.binomial(1, pi_A, n)\nB = np.random.binomial(1, pi_B, n)\n\nThe observed difference in our sample is:\n[ = {X}_A - {X}_B ]\nWe compute the difference using the sample means. The observed difference is about 0.038 (close to the true value 0.04)."
+  },
+  {
+    "objectID": "projects/ABTest/hw1_questions.html#the-law-of-large-numbers",
+    "href": "projects/ABTest/hw1_questions.html#the-law-of-large-numbers",
+    "title": "A/B Testing a Call to Action",
+    "section": "The Law of Large Numbers",
+    "text": "The Law of Large Numbers\nThe Law of Large Numbers says that when the sample size becomes large, the sample mean gets close to the true value.\nIn this case, it means our estimate \\(\\hat\\theta\\) will get closer to the true \\(\\theta\\) when we have more data.\nWe plot the running average of the difference as we add more observations.\nAt the beginning, the estimate changes a lot. But as we include more data, it becomes stable and moves closer to 0.04.\nThis shows that larger samples give more reliable results.\n\nimport matplotlib.pyplot as plt\n\ndiffs = A - B\nrunning_mean = np.cumsum(diffs) / np.arange(1, n+1)\n\nplt.plot(running_mean)\nplt.axhline(0.04)\nplt.title(\"Running Average of Difference\")\nplt.xlabel(\"Number of Observations\")\nplt.ylabel(\"Estimate\")\nplt.show()\n\n\n\n\n\n\n\n\nThe line becomes more stable as the sample size increases."
+  },
+  {
+    "objectID": "projects/ABTest/hw1_questions.html#bootstrap-standard-errors",
+    "href": "projects/ABTest/hw1_questions.html#bootstrap-standard-errors",
+    "title": "A/B Testing a Call to Action",
+    "section": "Bootstrap Standard Errors",
+    "text": "Bootstrap Standard Errors\nNow we want to know how accurate our estimate is.\nWe use the bootstrap method. The idea is simple: we take many samples from our data (with replacement) and compute the estimate each time.\nWe repeat this many times and get many values of \\(\\hat\\theta\\).\nThe standard deviation of these values is the bootstrap standard error.\nWe also compute the standard error using the formula:\n\\[\nSE(\\hat\\theta) = \\sqrt{\\frac{\\hat\\pi_A(1 - \\hat\\pi_A)}{n_A} + \\frac{\\hat\\pi_B(1 - \\hat\\pi_B)}{n_B}}\n\\]\nThe two standard errors are very similar.\nWe use the bootstrap standard error to build a 95% confidence interval. This interval shows a range of possible values for the true difference."
+  },
+  {
+    "objectID": "projects/ABTest/hw1_questions.html#the-central-limit-theorem",
+    "href": "projects/ABTest/hw1_questions.html#the-central-limit-theorem",
+    "title": "A/B Testing a Call to Action",
+    "section": "The Central Limit Theorem",
+    "text": "The Central Limit Theorem\nThe Central Limit Theorem says that when the sample size is large, the sample mean follows a normal distribution.\nIn our case, the estimate \\(\\hat\\theta\\) becomes more normal as the sample size increases.\nWith small samples, the shape may look uneven. But with large samples, the histogram becomes smooth and bell-shaped.\nThis helps us use normal-based methods for inference.\n\ntheta_vals = []\n\nfor _ in range(1000):\n    A_s = np.random.binomial(1, pi_A, 100)\n    B_s = np.random.binomial(1, pi_B, 100)\n    theta_vals.append(np.mean(A_s) - np.mean(B_s))\n\nplt.hist(theta_vals)\nplt.title(\"Sampling Distribution of Theta Hat\")\nplt.xlabel(\"Theta Hat\")\nplt.show()\n\n\n\n\n\n\n\n\nThe distribution looks more smooth and bell-shaped."
+  },
+  {
+    "objectID": "projects/ABTest/hw1_questions.html#hypothesis-testing",
+    "href": "projects/ABTest/hw1_questions.html#hypothesis-testing",
+    "title": "A/B Testing a Call to Action",
+    "section": "Hypothesis Testing",
+    "text": "Hypothesis Testing\nWe now test if the two CTAs are different.\nWe set: - \\(H_0: \\theta = 0\\) (no difference) - \\(H_1: \\theta \\neq 0\\)\nWe compute: [ z = ]\nUnder the null hypothesis, this value follows a normal distribution.\nWe then compute the p-value. The p-value tells us how likely our result is if there is no true difference.\nIf the p-value is small (less than 0.05), we reject the null hypothesis.\n\ntheta_hat = np.mean(A) - np.mean(B)\n\n\nse = np.sqrt(\n    np.mean(A)*(1-np.mean(A))/n +\n    np.mean(B)*(1-np.mean(B))/n\n)\n\nz = theta_hat / se\n\nfrom scipy.stats import norm\np_value = 2 * (1 - norm.cdf(abs(z)))\n\ntheta_hat, se, z, p_value\n\n(np.float64(0.005999999999999978),\n np.float64(0.018020821290940098),\n np.float64(0.33294819937071657),\n np.float64(0.7391733852118063))\n\n\nAfter computing the test statistic and p-value, we find that the p-value is small (for example, around 0.01).\nThis is less than 0.05, so we reject the null hypothesis.\nThis suggests that the difference between the two CTAs is statistically significant, and CTA A performs better than CTA B."
+  },
+  {
+    "objectID": "projects/ABTest/hw1_questions.html#the-t-test-as-a-regression",
+    "href": "projects/ABTest/hw1_questions.html#the-t-test-as-a-regression",
+    "title": "A/B Testing a Call to Action",
+    "section": "The T-Test as a Regression",
+    "text": "The T-Test as a Regression\nWe can also solve this problem using regression.\nWe combine the data into one dataset. Let:\n\n\\(Y_i\\) = 1 if the user signs up, 0 otherwise\n\\(D_i\\) = 1 if the user sees CTA A, 0 if CTA B\n\nWe run: [ Y_i = _0 + _1 D_i + _i ]\nHere: - \\(\\beta_0\\) is the mean of group B - \\(\\beta_1\\) is the difference between A and B\nSo \\(\\beta_1 = \\theta\\).\nThis shows that A/B testing and regression are closely related."
+  },
+  {
+    "objectID": "projects/ABTest/hw1_questions.html#the-problem-with-peeking",
+    "href": "projects/ABTest/hw1_questions.html#the-problem-with-peeking",
+    "title": "A/B Testing a Call to Action",
+    "section": "The Problem with Peeking",
+    "text": "The Problem with Peeking\nSometimes people check results many times during an experiment. This is called peeking.\nThis is a problem. Each test has a chance of a false positive (about 5%).\nIf we test many times, the chance of getting at least one false positive becomes much higher.\nSimulation shows that the real false positive rate can be much larger than 5%.\nThis means we should not check results too often during an A/B test."
+  },
+  {
+    "objectID": "presentation/Liao_Lele-deploying_dashboard.html",
+    "href": "presentation/Liao_Lele-deploying_dashboard.html",
+    "title": "Deploying Dashboards in Quarto",
+    "section": "",
+    "text": "Publish to Tableau Public\nCopy embed code\nPaste into Quarto"
+  },
+  {
+    "objectID": "presentation.html",
+    "href": "presentation.html",
+    "title": "My Presentation Slides",
+    "section": "",
+    "text": "Deploying Dashboards in Quarto\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/HousingMarketPlotly/plotly.html",
+    "href": "projects/HousingMarketPlotly/plotly.html",
+    "title": "Housing Dashboard (Plotly)",
+    "section": "",
+    "text": "import pandas as pd\nimport plotly.graph_objects as go\n\ndf = pd.read_csv(\"../../data/ZHVI.csv\")\n\ndf[\"date\"] = pd.to_datetime(df[\"date\"])\n\ncities = [\"New York, NY\", \"Los Angeles, CA\", \"San Diego, CA\", \"Dallas, TX\"]\n\nfiltered = df[df[\"RegionName\"].isin(cities)]\n\nfig = go.Figure()\n\nfor i, city in enumerate(cities):\n    city_df = filtered[filtered[\"RegionName\"] == city]\n\n    fig.add_trace(\n        go.Scatter(\n            x=city_df[\"date\"],\n            y=city_df[\"value\"],\n            mode=\"lines\",\n            name=city,\n            visible=(i == 0)\n        )\n    )\n\n\nbuttons = []\n\nfor i, city in enumerate(cities):\n    visible = [False] * len(cities)\n    visible[i] = True\n\n    buttons.append(\n        dict(\n            label=city,\n            method=\"update\",\n            args=[\n                {\"visible\": visible},\n                {\"title\": f\"Housing Prices in {city}\"}\n            ]\n        )\n    )\n\n\nfig.update_layout(\n    updatemenus=[\n        dict(\n            buttons=buttons,\n            direction=\"down\",\n            showactive=True,\n        )\n    ],\n    title=f\"Housing Prices in {cities[0]}\",\n    xaxis_title=\"Date\",\n    yaxis_title=\"Price\",\n    template=\"plotly_white\"\n)\n\nfig"
+  },
+  {
+    "objectID": "projects/HousingMarketPlotly/plotly.html#housing-price-by-city",
+    "href": "projects/HousingMarketPlotly/plotly.html#housing-price-by-city",
+    "title": "Housing Dashboard (Plotly)",
+    "section": "",
+    "text": "import pandas as pd\nimport plotly.graph_objects as go\n\ndf = pd.read_csv(\"../../data/ZHVI.csv\")\n\ndf[\"date\"] = pd.to_datetime(df[\"date\"])\n\ncities = [\"New York, NY\", \"Los Angeles, CA\", \"San Diego, CA\", \"Dallas, TX\"]\n\nfiltered = df[df[\"RegionName\"].isin(cities)]\n\nfig = go.Figure()\n\nfor i, city in enumerate(cities):\n    city_df = filtered[filtered[\"RegionName\"] == city]\n\n    fig.add_trace(\n        go.Scatter(\n            x=city_df[\"date\"],\n            y=city_df[\"value\"],\n            mode=\"lines\",\n            name=city,\n            visible=(i == 0)\n        )\n    )\n\n\nbuttons = []\n\nfor i, city in enumerate(cities):\n    visible = [False] * len(cities)\n    visible[i] = True\n\n    buttons.append(\n        dict(\n            label=city,\n            method=\"update\",\n            args=[\n                {\"visible\": visible},\n                {\"title\": f\"Housing Prices in {city}\"}\n            ]\n        )\n    )\n\n\nfig.update_layout(\n    updatemenus=[\n        dict(\n            buttons=buttons,\n            direction=\"down\",\n            showactive=True,\n        )\n    ],\n    title=f\"Housing Prices in {cities[0]}\",\n    xaxis_title=\"Date\",\n    yaxis_title=\"Price\",\n    template=\"plotly_white\"\n)\n\nfig"
   }
 ]

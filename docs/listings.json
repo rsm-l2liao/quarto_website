@@ -2,8 +2,15 @@
   {
     "listing": "/projects.html",
     "items": [
-      "/projects/project2/plotly.html",
+      "/projects/ABTest/hw1_questions.html",
+      "/projects/HousingMarketPlotly/plotly.html",
       "/projects/HousingMarket/index.html"
+    ]
+  },
+  {
+    "listing": "/presentation.html",
+    "items": [
+      "/presentation/Liao_Lele-deploying_dashboard.html"
     ]
   }
 ]

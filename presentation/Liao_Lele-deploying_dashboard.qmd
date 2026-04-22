@@ -12,7 +12,7 @@ format:
 2. Copy embed code
 3. Paste into Quarto
 
-![](../images/TableauDeploy.png)
+![](../images/Presentation2.png)
 
 
 # Plotly Deployment
@@ -26,7 +26,7 @@ format:
 :::
 
 ::: column
-![](../images/Plotly.png)
+![](../images/Presentation1.png)
 :::
 
 :::

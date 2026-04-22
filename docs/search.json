@@ -32,7 +32,7 @@
     "href": "projects.html",
     "title": "My Projects",
     "section": "",
-    "text": "A/B Testing a Call to Action\n\n\n\n\n\n\nLele Liao\n\n\nApr 16, 2026\n\n\n\n\n\n\n\n\n\n\n\nHousing Dashboard (Plotly)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHousing Market Dashboard\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "A/B Testing a Call to Action\n\n\n\n\n\n\nLele Liao\n\n\nApr 22, 2026\n\n\n\n\n\n\n\n\n\n\n\nHousing Dashboard (Plotly)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHousing Market Dashboard\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReplication of Card and Krueger (1994)\n\n\n\n\n\n\nLele Liao\n\n\nApr 22, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -292,5 +292,33 @@
     "title": "Housing Dashboard (Plotly)",
     "section": "",
     "text": "import pandas as pd\nimport plotly.graph_objects as go\n\ndf = pd.read_csv(\"../../data/ZHVI.csv\")\n\ndf[\"date\"] = pd.to_datetime(df[\"date\"])\n\ncities = [\"New York, NY\", \"Los Angeles, CA\", \"San Diego, CA\", \"Dallas, TX\"]\n\nfiltered = df[df[\"RegionName\"].isin(cities)]\n\nfig = go.Figure()\n\nfor i, city in enumerate(cities):\n    city_df = filtered[filtered[\"RegionName\"] == city]\n\n    fig.add_trace(\n        go.Scatter(\n            x=city_df[\"date\"],\n            y=city_df[\"value\"],\n            mode=\"lines\",\n            name=city,\n            visible=(i == 0)\n        )\n    )\n\n\nbuttons = []\n\nfor i, city in enumerate(cities):\n    visible = [False] * len(cities)\n    visible[i] = True\n\n    buttons.append(\n        dict(\n            label=city,\n            method=\"update\",\n            args=[\n                {\"visible\": visible},\n                {\"title\": f\"Housing Prices in {city}\"}\n            ]\n        )\n    )\n\n\nfig.update_layout(\n    updatemenus=[\n        dict(\n            buttons=buttons,\n            direction=\"down\",\n            showactive=True,\n        )\n    ],\n    title=f\"Housing Prices in {cities[0]}\",\n    xaxis_title=\"Date\",\n    yaxis_title=\"Price\",\n    template=\"plotly_white\"\n)\n\nfig"
+  },
+  {
+    "objectID": "projects/Research/hw2_questions.html#introduction",
+    "href": "projects/Research/hw2_questions.html#introduction",
+    "title": "Replication of Card and Krueger (1994)",
+    "section": "Introduction",
+    "text": "Introduction\nThis blog post studies the famous paper by Card and Krueger (1994). The authors ask a simple but important question:\nDoes increasing the minimum wage reduce employment?\nTraditional economic theory says that when the minimum wage goes up, firms will hire fewer workers because labor becomes more expensive. However, Card and Krueger test this idea using real data.\nThey study a natural experiment in 1992:\n\nNew Jersey increased its minimum wage from $4.25 to $5.05\nPennsylvania did not change its minimum wage\n\nBy comparing these two states before and after the policy change, they use a method called difference-in-differences (DID) to estimate the effect of the minimum wage."
+  },
+  {
+    "objectID": "projects/Research/hw2_questions.html#main-analysis",
+    "href": "projects/Research/hw2_questions.html#main-analysis",
+    "title": "Replication of Card and Krueger (1994)",
+    "section": "Main Analysis",
+    "text": "Main Analysis\nI replicate the main result of the paper using the original dataset of fast-food restaurants.\nFirst, I calculate employment using full-time equivalent (FTE):\n\nFTE = full-time workers + 0.5 × part-time workers\n\nThen I compare employment before and after the policy.\n\nResults\n\nNew Jersey employment change: +0.51\nPennsylvania employment change: −2.41\nDifference-in-differences (DID): +2.91\n\n\nThe figure shows that employment increased in New Jersey but decreased in Pennsylvania. This creates a positive difference-in-differences estimate.\n\n\nInterpretation\nThis result is surprising.\nAccording to standard theory, employment should decrease. However, the data shows the opposite:\n\nThe minimum wage increase did not reduce employment. It may have increased it.\n\nI also run a simple regression, and the coefficient is about 2.94, which is very close to the DID estimate. This shows the result is consistent and robust."
+  },
+  {
+    "objectID": "projects/Research/hw2_questions.html#something-additional",
+    "href": "projects/Research/hw2_questions.html#something-additional",
+    "title": "Replication of Card and Krueger (1994)",
+    "section": "Something Additional",
+    "text": "Something Additional\n\nWage Changes\nTo confirm that the policy actually worked, I look at wages:\n\nLow-wage stores increased wages by about 0.81 (around 10%)\nHigh-wage stores had almost no change\n\nThis shows that the minimum wage policy was enforced.\n\n\n\nPrice Changes\nI also analyze prices:\n\nNew Jersey prices increased by 2.60%\nPennsylvania prices decreased by 0.44%\n\nThis suggests that firms passed some of the higher labor costs to consumers.\n\n\n\nWage Distribution\nThe histogram shows a clear change:\n\n\nBefore the policy, wages were spread out\nAfter the policy, many wages are clustered at $5.05\n\nThis confirms that the minimum wage became binding.\n\n\n\nWhy DID Works\nThe DID method works because it compares two groups:\n\nNew Jersey (treatment group)\nPennsylvania (control group)\n\nIt removes:\n\nDifferences between states\nCommon time trends\n\nThe key assumption is that both states would have followed similar trends without the policy. My results support this assumption."
+  },
+  {
+    "objectID": "projects/Research/hw2_questions.html#conclusion",
+    "href": "projects/Research/hw2_questions.html#conclusion",
+    "title": "Replication of Card and Krueger (1994)",
+    "section": "Conclusion",
+    "text": "Conclusion\nMy replication confirms the main finding of Card and Krueger (1994):\n\nMinimum wage increases did not reduce employment\nWages increased for low-wage workers\nPrices increased slightly\n\nThis paper is important because it challenges traditional economic theory and shows that real-world labor markets can behave differently."
   }
 ]

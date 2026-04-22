@@ -3,15 +3,6 @@ title: "Lele Liao"
 image: "files/Lele_Winter.jpg"
 about:
   template: jolla
-  links:
-    - icon: envelope
-      href: mailto:l2liao@ucsd.edu
-    - icon: linkedin
-      href: https://www.linkedin.com/in/lele-liao-134340/
-    - icon: github
-      href: https://github.com/rsm-l2liao
-    - icon: envelope
-      href: mailto:l2liao@ucsd.edu
 ---
 
 Welcome to my website!
@@ -21,11 +12,15 @@ Welcome to my website!
 ::: {.grid}
 
 ::: {.g-col-12 .g-col-md-4}
-::: {.feature-card}
-<h3>📊 Churn Prediction</h3>
-<p>Predict customer churn using ML models.</p>
-<a href="projects/churn-analysis.qmd">View Project →</a>
-:::
+<a href="./projects/ABTest/hw1_questions.html" class="feature-card-link">
+<div class="feature-card">
+<h3>🧾 A/B Testing CTA</h3>
+<p>
+Simulating frequentist statistics with an A/B test on website sign-ups.
+</p>
+<span class="card-link">View Project →</span>
+</div>
+</a>
 :::
 
 ::: {.g-col-12 .g-col-md-4}
@@ -41,11 +36,15 @@ Explore how income influences housing and rental prices.
 :::
 
 ::: {.g-col-12 .g-col-md-4}
-::: {.feature-card}
-<h3>🤖 ML Model Deployment</h3>
-<p>End-to-end ML pipeline with deployment.</p>
-<a href="projects/ml-deployment.qmd">View Project →</a>
-:::
+<a href="./projects/Research/hw2_questions.html" class="feature-card-link">
+<div class="feature-card">
+<h3>📖 Minimum Wage Study</h3>
+<p>
+Replication of Card & Krueger (1994) using DID analysis.
+</p>
+<span class="card-link">View Project →</span>
+</div>
+</a>
 :::
 
 :::

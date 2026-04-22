@@ -21,6 +21,8 @@ website:
         href: https://github.com/rsm-l2liao
       - icon: linkedin
         href: https://www.linkedin.com/in/lele-liao-134340/
+      - icon: envelope
+        href: mailto:l2liao@ucsd.edu
 
   page-footer:
     center: |

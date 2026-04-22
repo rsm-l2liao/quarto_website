@@ -1,5 +1,6 @@
 ---
 title: "Housing Dashboard (Plotly)"
+description: "Interactive dashboard for exploring housing prices across major U.S. cities."
 format: html
 execute:
   enabled: true

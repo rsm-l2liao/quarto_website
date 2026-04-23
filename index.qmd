@@ -14,9 +14,9 @@ Welcome to my website!
 ::: {.g-col-12 .g-col-md-4}
 <a href="./projects/ABTest/hw1_questions.html" class="feature-card-link">
 <div class="feature-card">
-<h3>🧾 A/B Testing CTA</h3>
+<h3>🧸 A/B Testing with Chiikawa</h3>
 <p>
-Simulating frequentist statistics with an A/B test on website sign-ups.
+A simple and visual guide to frequentist statistics using an A/B test on website sign-ups.
 </p>
 <span class="card-link">View Project →</span>
 </div>

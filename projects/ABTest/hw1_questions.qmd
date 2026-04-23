@@ -1,5 +1,5 @@
 ---
-title: A/B Testing a Call to Action
+title: Chiikawa Explains A/B Testing a Call to Action
 subtitle: "Simulating Key Ideas from Classical Frequentist Statistics"
 author: "Lele Liao"
 date: today

@@ -11,7 +11,7 @@
     "href": "index.html#featured-projects",
     "title": "Lele Liao",
     "section": "Featured Projects",
-    "text": "Featured Projects\n\n\n\n\n\n🧾 A/B Testing CTA\n\n\nSimulating frequentist statistics with an A/B test on website sign-ups.\n\nView Project →\n\n\n\n\n\n\n\n📊 Housing Market Dashboard\n\n\nExplore how income influences housing and rental prices.\n\nView Dashboard →\n\n\n\n\n\n\n\n📖 Minimum Wage Study\n\n\nReplication of Card & Krueger (1994) using DID analysis.\n\nView Project →"
+    "text": "Featured Projects\n\n\n\n\n\n🧸 A/B Testing with Chiikawa\n\n\nA simple and visual guide to frequentist statistics using an A/B test on website sign-ups.\n\nView Project →\n\n\n\n\n\n\n\n📊 Housing Market Dashboard\n\n\nExplore how income influences housing and rental prices.\n\nView Dashboard →\n\n\n\n\n\n\n\n📖 Minimum Wage Study\n\n\nReplication of Card & Krueger (1994) using DID analysis.\n\nView Project →"
   },
   {
     "objectID": "resume.html",
@@ -32,7 +32,7 @@
     "href": "projects.html",
     "title": "My Projects",
     "section": "",
-    "text": "A/B Testing a Call to Action (Chiikawa)\n\n\n\n\n\n\nLele Liao\n\n\nApr 23, 2026\n\n\n\n\n\n\n\n\n\n\n\nHousing Dashboard (Plotly)\n\n\nInteractive dashboard for exploring housing prices across major U.S. cities.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHousing Market Dashboard\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReplication of Card and Krueger (1994)\n\n\n\n\n\n\nLele Liao\n\n\nApr 23, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "Chiikawa Explains A/B Testing a Call to Action\n\n\n\n\n\n\nLele Liao\n\n\nApr 23, 2026\n\n\n\n\n\n\n\n\n\n\n\nHousing Dashboard (Plotly)\n\n\nInteractive dashboard for exploring housing prices across major U.S. cities.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHousing Market Dashboard\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReplication of Card and Krueger (1994)\n\n\n\n\n\n\nLele Liao\n\n\nApr 23, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -198,70 +198,70 @@
   {
     "objectID": "projects/ABTest/hw1_questions.html",
     "href": "projects/ABTest/hw1_questions.html",
-    "title": "A/B Testing a Call to Action (Chiikawa)",
+    "title": "Chiikawa Explains A/B Testing a Call to Action",
     "section": "",
     "text": "This diagram shows the full idea of the A/B test and the main statistical concepts we will explore."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#introduction",
     "href": "projects/ABTest/hw1_questions.html#introduction",
-    "title": "A/B Testing a Call to Action (Chiikawa)",
+    "title": "Chiikawa Explains A/B Testing a Call to Action",
     "section": "Introduction",
     "text": "Introduction\nWe have a website where users can sign up for a newsletter.\nWe want to test which message works better:\n\nCTA A\nCTA B\n\nWe run an A/B test by randomly showing different messages to users.\nThen we compare which one gets more sign-ups."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#the-ab-test-as-a-statistical-problem",
     "href": "projects/ABTest/hw1_questions.html#the-ab-test-as-a-statistical-problem",
-    "title": "A/B Testing a Call to Action (Chiikawa)",
+    "title": "Chiikawa Explains A/B Testing a Call to Action",
     "section": "The A/B Test as a Statistical Problem",
     "text": "The A/B Test as a Statistical Problem\nEach user either signs up (1) or not (0).\nSo we use a simple model:\n\nπ_A = sign-up rate for A\nπ_B = sign-up rate for B\n\nWe care about the difference:\nθ = π_A - π_B\n\n\n\nWe are just comparing two probabilities."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#simulating-data",
     "href": "projects/ABTest/hw1_questions.html#simulating-data",
-    "title": "A/B Testing a Call to Action (Chiikawa)",
+    "title": "Chiikawa Explains A/B Testing a Call to Action",
     "section": "Simulating Data",
     "text": "Simulating Data\nIn real life, we don’t know the true rates.\nSo we choose:\nπ_A = 0.22 π_B = 0.18\nThen we simulate users.\n\n\n\nSimulation helps us understand how methods work."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#the-law-of-large-numbers",
     "href": "projects/ABTest/hw1_questions.html#the-law-of-large-numbers",
-    "title": "A/B Testing a Call to Action (Chiikawa)",
+    "title": "Chiikawa Explains A/B Testing a Call to Action",
     "section": "The Law of Large Numbers",
     "text": "The Law of Large Numbers\nAs we collect more data, our estimate becomes stable.\nSmall data → noisy Large data → stable\n\n\n\nMore data = more reliable results."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#bootstrap-standard-errors",
     "href": "projects/ABTest/hw1_questions.html#bootstrap-standard-errors",
-    "title": "A/B Testing a Call to Action (Chiikawa)",
+    "title": "Chiikawa Explains A/B Testing a Call to Action",
     "section": "Bootstrap Standard Errors",
     "text": "Bootstrap Standard Errors\nWe resample our data many times.\nEach time we compute the estimate.\nThis tells us how accurate our result is.\n\n\n\nBootstrap measures uncertainty."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#the-central-limit-theorem",
     "href": "projects/ABTest/hw1_questions.html#the-central-limit-theorem",
-    "title": "A/B Testing a Call to Action (Chiikawa)",
+    "title": "Chiikawa Explains A/B Testing a Call to Action",
     "section": "The Central Limit Theorem",
     "text": "The Central Limit Theorem\nWith small samples, results look messy.\nWith large samples, results look normal (bell-shaped).\n\n\n\nBig samples make things look normal."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#hypothesis-testing",
     "href": "projects/ABTest/hw1_questions.html#hypothesis-testing",
-    "title": "A/B Testing a Call to Action (Chiikawa)",
+    "title": "Chiikawa Explains A/B Testing a Call to Action",
     "section": "Hypothesis Testing",
     "text": "Hypothesis Testing\nWe test:\nH0: no difference H1: there is a difference\nIf p-value &lt; 0.05 → we reject H0\n\n\n\nSmall p-value = unlikely to be random."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#the-t-test-as-a-regression",
     "href": "projects/ABTest/hw1_questions.html#the-t-test-as-a-regression",
-    "title": "A/B Testing a Call to Action (Chiikawa)",
+    "title": "Chiikawa Explains A/B Testing a Call to Action",
     "section": "The T-Test as a Regression",
     "text": "The T-Test as a Regression\nWe can also use regression.\nIt gives the same answer as our test.\n\n\n\nDifferent tools, same result."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#the-problem-with-peeking",
     "href": "projects/ABTest/hw1_questions.html#the-problem-with-peeking",
-    "title": "A/B Testing a Call to Action (Chiikawa)",
+    "title": "Chiikawa Explains A/B Testing a Call to Action",
     "section": "The Problem with Peeking",
     "text": "The Problem with Peeking\nChecking results too often is risky.\nIt increases false positives.\n\n\n\nDon’t check too early!"
   },
@@ -324,14 +324,14 @@
   {
     "objectID": "projects/ABTest/hw1_questions.html#overview",
     "href": "projects/ABTest/hw1_questions.html#overview",
-    "title": "A/B Testing a Call to Action (Chiikawa)",
+    "title": "Chiikawa Explains A/B Testing a Call to Action",
     "section": "",
     "text": "This diagram shows the full idea of the A/B test and the main statistical concepts we will explore."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#end",
     "href": "projects/ABTest/hw1_questions.html#end",
-    "title": "A/B Testing a Call to Action (Chiikawa)",
+    "title": "Chiikawa Explains A/B Testing a Call to Action",
     "section": "END",
     "text": "END\n\n\n\nThank you"
   }

@@ -32,7 +32,7 @@
     "href": "projects.html",
     "title": "My Projects",
     "section": "",
-    "text": "A/B Testing a Call to Action\n\n\n\n\n\n\nLele Liao\n\n\nApr 22, 2026\n\n\n\n\n\n\n\n\n\n\n\nHousing Dashboard (Plotly)\n\n\nInteractive dashboard for exploring housing prices across major U.S. cities.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHousing Market Dashboard\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReplication of Card and Krueger (1994)\n\n\n\n\n\n\nLele Liao\n\n\nApr 22, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "A/B Testing a Call to Action\n\n\n\n\n\n\nLele Liao\n\n\nApr 23, 2026\n\n\n\n\n\n\n\n\n\n\n\nHousing Dashboard (Plotly)\n\n\nInteractive dashboard for exploring housing prices across major U.S. cities.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHousing Market Dashboard\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReplication of Card and Krueger (1994)\n\n\n\n\n\n\nLele Liao\n\n\nApr 23, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -200,70 +200,70 @@
     "href": "projects/ABTest/hw1_questions.html",
     "title": "A/B Testing a Call to Action",
     "section": "",
-    "text": "I have a website where visitors can sign up for a newsletter. On the homepage, there is a message that asks users to sign up.\nI want to test which message works better. I try two versions:\n\nCTA A: “Sign up for our newsletter here!”\nCTA B: “Stay up to date by signing up!”\n\nTo compare them, I run an A/B test. In an A/B test, users are randomly split into two groups. One group sees CTA A, and the other group sees CTA B.\nThen I compare how many users sign up in each group to see which one performs better."
+    "text": "This diagram shows the full idea of the A/B test and the main statistical concepts we will explore."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#introduction",
     "href": "projects/ABTest/hw1_questions.html#introduction",
     "title": "A/B Testing a Call to Action",
-    "section": "",
-    "text": "I have a website where visitors can sign up for a newsletter. On the homepage, there is a message that asks users to sign up.\nI want to test which message works better. I try two versions:\n\nCTA A: “Sign up for our newsletter here!”\nCTA B: “Stay up to date by signing up!”\n\nTo compare them, I run an A/B test. In an A/B test, users are randomly split into two groups. One group sees CTA A, and the other group sees CTA B.\nThen I compare how many users sign up in each group to see which one performs better."
+    "section": "Introduction",
+    "text": "Introduction\nWe have a website where users can sign up for a newsletter.\nWe want to test which message works better:\n\nCTA A\nCTA B\n\nWe run an A/B test by randomly showing different messages to users.\nThen we compare which one gets more sign-ups."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#the-ab-test-as-a-statistical-problem",
     "href": "projects/ABTest/hw1_questions.html#the-ab-test-as-a-statistical-problem",
     "title": "A/B Testing a Call to Action",
     "section": "The A/B Test as a Statistical Problem",
-    "text": "The A/B Test as a Statistical Problem\nEach user either signs up or does not sign up. So we can write the result as 1 (sign up) or 0 (no sign up).\nThis means each result follows a Bernoulli distribution with probability \\(\\pi\\).\nBecause the message may affect user behavior, we allow different probabilities:\n\n\\(\\pi_A\\) for CTA A\n\\(\\pi_B\\) for CTA B\n\nWe care about the difference: [ = _A - _B ]\nWe estimate this using the data: [ = {X}_A - {X}_B ]\nSince the data are 0 or 1, the mean is just the sign-up rate."
+    "text": "The A/B Test as a Statistical Problem\nEach user either signs up (1) or not (0).\nSo we use a simple model:\n\nπ_A = sign-up rate for A\nπ_B = sign-up rate for B\n\nWe care about the difference:\nθ = π_A - π_B\n\n\n\nWe are just comparing two probabilities."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#simulating-data",
     "href": "projects/ABTest/hw1_questions.html#simulating-data",
     "title": "A/B Testing a Call to Action",
     "section": "Simulating Data",
-    "text": "Simulating Data\nIn real life, we do not know the true values of \\(\\pi_A\\) and \\(\\pi_B\\). But in this simulation, we choose them ourselves.\nWe set: - \\(\\pi_A = 0.22\\) - \\(\\pi_B = 0.18\\)\nSo the true difference is: [ = 0.04 ]\nWe simulate 1,000 users for each group using these probabilities.\nThis gives us data that look like a real A/B test.\n\nimport numpy as np\n\nnp.random.seed(123)\n\nn = 1000\npi_A = 0.22\npi_B = 0.18\n\nA = np.random.binomial(1, pi_A, n)\nB = np.random.binomial(1, pi_B, n)\n\nThe observed difference in our sample is:\n[ = {X}_A - {X}_B ]\nWe compute the difference using the sample means. The observed difference is about 0.038 (close to the true value 0.04)."
+    "text": "Simulating Data\nIn real life, we don’t know the true rates.\nSo we choose:\nπ_A = 0.22 π_B = 0.18\nThen we simulate users.\n\n\n\nSimulation helps us understand how methods work."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#the-law-of-large-numbers",
     "href": "projects/ABTest/hw1_questions.html#the-law-of-large-numbers",
     "title": "A/B Testing a Call to Action",
     "section": "The Law of Large Numbers",
-    "text": "The Law of Large Numbers\nThe Law of Large Numbers says that when the sample size becomes large, the sample mean gets close to the true value.\nIn this case, it means our estimate \\(\\hat\\theta\\) will get closer to the true \\(\\theta\\) when we have more data.\nWe plot the running average of the difference as we add more observations.\nAt the beginning, the estimate changes a lot. But as we include more data, it becomes stable and moves closer to 0.04.\nThis shows that larger samples give more reliable results.\n\nimport matplotlib.pyplot as plt\n\ndiffs = A - B\nrunning_mean = np.cumsum(diffs) / np.arange(1, n+1)\n\nplt.plot(running_mean)\nplt.axhline(0.04)\nplt.title(\"Running Average of Difference\")\nplt.xlabel(\"Number of Observations\")\nplt.ylabel(\"Estimate\")\nplt.show()\n\n\n\n\n\n\n\n\nThe line becomes more stable as the sample size increases."
+    "text": "The Law of Large Numbers\nAs we collect more data, our estimate becomes stable.\nSmall data → noisy Large data → stable\n\n\n\nMore data = more reliable results."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#bootstrap-standard-errors",
     "href": "projects/ABTest/hw1_questions.html#bootstrap-standard-errors",
     "title": "A/B Testing a Call to Action",
     "section": "Bootstrap Standard Errors",
-    "text": "Bootstrap Standard Errors\nNow we want to know how accurate our estimate is.\nWe use the bootstrap method. The idea is simple: we take many samples from our data (with replacement) and compute the estimate each time.\nWe repeat this many times and get many values of \\(\\hat\\theta\\).\nThe standard deviation of these values is the bootstrap standard error.\nWe also compute the standard error using the formula:\n\\[\nSE(\\hat\\theta) = \\sqrt{\\frac{\\hat\\pi_A(1 - \\hat\\pi_A)}{n_A} + \\frac{\\hat\\pi_B(1 - \\hat\\pi_B)}{n_B}}\n\\]\nThe two standard errors are very similar.\nWe use the bootstrap standard error to build a 95% confidence interval. This interval shows a range of possible values for the true difference."
+    "text": "Bootstrap Standard Errors\nWe resample our data many times.\nEach time we compute the estimate.\nThis tells us how accurate our result is.\n\n\n\nBootstrap measures uncertainty."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#the-central-limit-theorem",
     "href": "projects/ABTest/hw1_questions.html#the-central-limit-theorem",
     "title": "A/B Testing a Call to Action",
     "section": "The Central Limit Theorem",
-    "text": "The Central Limit Theorem\nThe Central Limit Theorem says that when the sample size is large, the sample mean follows a normal distribution.\nIn our case, the estimate \\(\\hat\\theta\\) becomes more normal as the sample size increases.\nWith small samples, the shape may look uneven. But with large samples, the histogram becomes smooth and bell-shaped.\nThis helps us use normal-based methods for inference.\n\ntheta_vals = []\n\nfor _ in range(1000):\n    A_s = np.random.binomial(1, pi_A, 100)\n    B_s = np.random.binomial(1, pi_B, 100)\n    theta_vals.append(np.mean(A_s) - np.mean(B_s))\n\nplt.hist(theta_vals)\nplt.title(\"Sampling Distribution of Theta Hat\")\nplt.xlabel(\"Theta Hat\")\nplt.show()\n\n\n\n\n\n\n\n\nThe distribution looks more smooth and bell-shaped."
+    "text": "The Central Limit Theorem\nWith small samples, results look messy.\nWith large samples, results look normal (bell-shaped).\n\n\n\nBig samples make things look normal."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#hypothesis-testing",
     "href": "projects/ABTest/hw1_questions.html#hypothesis-testing",
     "title": "A/B Testing a Call to Action",
     "section": "Hypothesis Testing",
-    "text": "Hypothesis Testing\nWe now test if the two CTAs are different.\nWe set: - \\(H_0: \\theta = 0\\) (no difference) - \\(H_1: \\theta \\neq 0\\)\nWe compute: [ z = ]\nUnder the null hypothesis, this value follows a normal distribution.\nWe then compute the p-value. The p-value tells us how likely our result is if there is no true difference.\nIf the p-value is small (less than 0.05), we reject the null hypothesis.\n\ntheta_hat = np.mean(A) - np.mean(B)\n\n\nse = np.sqrt(\n    np.mean(A)*(1-np.mean(A))/n +\n    np.mean(B)*(1-np.mean(B))/n\n)\n\nz = theta_hat / se\n\nfrom scipy.stats import norm\np_value = 2 * (1 - norm.cdf(abs(z)))\n\ntheta_hat, se, z, p_value\n\n(np.float64(0.005999999999999978),\n np.float64(0.018020821290940098),\n np.float64(0.33294819937071657),\n np.float64(0.7391733852118063))\n\n\nAfter computing the test statistic and p-value, we find that the p-value is small (for example, around 0.01).\nThis is less than 0.05, so we reject the null hypothesis.\nThis suggests that the difference between the two CTAs is statistically significant, and CTA A performs better than CTA B."
+    "text": "Hypothesis Testing\nWe test:\nH0: no difference H1: there is a difference\nIf p-value &lt; 0.05 → we reject H0\n\n\n\nSmall p-value = unlikely to be random."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#the-t-test-as-a-regression",
     "href": "projects/ABTest/hw1_questions.html#the-t-test-as-a-regression",
     "title": "A/B Testing a Call to Action",
     "section": "The T-Test as a Regression",
-    "text": "The T-Test as a Regression\nWe can also solve this problem using regression.\nWe combine the data into one dataset. Let:\n\n\\(Y_i\\) = 1 if the user signs up, 0 otherwise\n\\(D_i\\) = 1 if the user sees CTA A, 0 if CTA B\n\nWe run: [ Y_i = _0 + _1 D_i + _i ]\nHere: - \\(\\beta_0\\) is the mean of group B - \\(\\beta_1\\) is the difference between A and B\nSo \\(\\beta_1 = \\theta\\).\nThis shows that A/B testing and regression are closely related."
+    "text": "The T-Test as a Regression\nWe can also use regression.\nIt gives the same answer as our test.\n\n\n\nDifferent tools, same result."
   },
   {
     "objectID": "projects/ABTest/hw1_questions.html#the-problem-with-peeking",
     "href": "projects/ABTest/hw1_questions.html#the-problem-with-peeking",
     "title": "A/B Testing a Call to Action",
     "section": "The Problem with Peeking",
-    "text": "The Problem with Peeking\nSometimes people check results many times during an experiment. This is called peeking.\nThis is a problem. Each test has a chance of a false positive (about 5%).\nIf we test many times, the chance of getting at least one false positive becomes much higher.\nSimulation shows that the real false positive rate can be much larger than 5%.\nThis means we should not check results too often during an A/B test."
+    "text": "The Problem with Peeking\nChecking results too often is risky.\nIt increases false positives.\n\n\n\nDon’t check too early!"
   },
   {
     "objectID": "presentation/Liao_Lele-deploying_dashboard.html",
@@ -320,5 +320,19 @@
     "title": "Replication of Card and Krueger (1994)",
     "section": "Conclusion",
     "text": "Conclusion\nMy replication confirms the main finding of Card and Krueger (1994):\n\nMinimum wage increases did not reduce employment\nWages increased for low-wage workers\nPrices increased slightly\n\nThis paper is important because it challenges traditional economic theory and shows that real-world labor markets can behave differently."
+  },
+  {
+    "objectID": "projects/ABTest/hw1_questions.html#overview",
+    "href": "projects/ABTest/hw1_questions.html#overview",
+    "title": "A/B Testing a Call to Action",
+    "section": "",
+    "text": "This diagram shows the full idea of the A/B test and the main statistical concepts we will explore."
+  },
+  {
+    "objectID": "projects/ABTest/hw1_questions.html#end",
+    "href": "projects/ABTest/hw1_questions.html#end",
+    "title": "A/B Testing a Call to Action",
+    "section": "END",
+    "text": "END\n\n\n\nThank you"
   }
 ]

@@ -8,23 +8,40 @@ date: today
 
 ## Introduction
 
-This blog post studies the famous paper by Card and Krueger (1994). The authors ask a simple but important question:
+Does raising the minimum wage reduce employment? For decades, the standard answer
+in economics was an unambiguous yes. If labor becomes more expensive, the
+textbook model of supply and demand predicts that firms will hire fewer workers.
+Card and Krueger (1994) challenged this consensus directly, using a real-world
+policy change to test whether the prediction held up in practice.
 
-**Does increasing the minimum wage reduce employment?**
+Their setting is a natural experiment that unfolded in April 1992, when New Jersey
+raised its minimum wage from \$4.25 to \$5.05 per hour — one of the largest
+state-level increases at the time. Pennsylvania, a neighboring state with a
+similar labor market, made no such change. By comparing fast-food employment in
+the two states before and after the New Jersey increase, Card and Krueger
+isolate the effect of the minimum wage from broader economic trends that would
+have affected both states equally.
 
-Traditional economic theory says that when the minimum wage goes up, firms will hire fewer workers because labor becomes more expensive. However, Card and Krueger test this idea using real data.
-
-They study a natural experiment in 1992:
-
-* New Jersey increased its minimum wage from $4.25 to $5.05
-* Pennsylvania did not change its minimum wage
-
-By comparing these two states before and after the policy change, they use a method called **difference-in-differences (DID)** to estimate the effect of the minimum wage.
+The method they use is **difference-in-differences (DiD)**. The core idea is
+simple: rather than asking how employment changed in New Jersey alone (which
+would confuse the policy effect with any other changes happening at the same
+time), DiD subtracts the contemporaneous change in Pennsylvania — the control
+group — from the change in New Jersey. What remains is an estimate of the
+employment effect attributable specifically to the minimum wage increase,
+provided that New Jersey and Pennsylvania would have followed similar employment
+trends in the absence of the policy. This "parallel trends" assumption is the
+key identifying assumption of the DiD design, and the authors argue it is
+credible given how similar the two states' fast-food labor markets were in the
+period leading up to the change.
 
 ---
 
 ## Main Analysis
 
+The paper's main outcome variable is full-time equivalent (FTE) employment,
+defined as the number of full-time workers plus one half of part-time workers.
+This measure captures total labor input more accurately than a simple headcount,
+since fast-food restaurants rely heavily on part-time staff.
 I replicate the main result of the paper using the original dataset of fast-food restaurants.
 
 First, I calculate employment using full-time equivalent (FTE):
@@ -53,6 +70,17 @@ According to standard theory, employment should decrease. However, the data show
 > **The minimum wage increase did not reduce employment. It may have increased it.**
 
 I also run a simple regression, and the coefficient is about **2.94**, which is very close to the DID estimate. This shows the result is consistent and robust.
+
+The positive DiD estimate is striking precisely because it runs counter to the
+standard theoretical prediction. One possible explanation is that fast-food
+labor markets are not perfectly competitive: employers may have some degree of
+**monopsony power**, meaning they face an upward-sloping labor supply curve
+rather than a perfectly elastic one. In such a setting, a minimum wage can
+actually increase both wages and employment simultaneously, up to a point —
+a result that the simple competitive model rules out by construction. Card and
+Krueger's finding therefore does not necessarily refute economic theory; rather,
+it suggests that the competitive model may be the wrong model for this
+particular market.
 
 ---
 
@@ -111,10 +139,19 @@ The key assumption is that both states would have followed similar trends withou
 
 ## Conclusion
 
-My replication confirms the main finding of Card and Krueger (1994):
+This replication confirms the headline result of Card and Krueger (1994):
+raising the minimum wage in New Jersey did not reduce fast-food employment
+relative to Pennsylvania. The DiD estimate is positive and economically
+meaningful, and it is robust to both the simple two-by-two calculation and a
+regression-based approach.
 
-* Minimum wage increases did not reduce employment
-* Wages increased for low-wage workers
-* Prices increased slightly
-
-This paper is important because it challenges traditional economic theory and shows that real-world labor markets can behave differently.
+The paper's contribution goes beyond its specific findings. By bringing
+credible causal identification — in the form of a natural experiment and a
+difference-in-differences design — to a question that had previously been
+studied almost exclusively with cross-sectional data, Card and Krueger helped
+shift the empirical standards of labor economics. Their work prompted a broader
+rethinking of the competitive labor market model and opened the door to a large
+subsequent literature using quasi-experimental methods to study the employment
+effects of minimum wages. The debate they sparked is still very much alive
+today, but the methodological template they established has become a cornerstone
+of modern applied economics.
